@@ -28,12 +28,12 @@ export default function Home() {
         const recommendationResponse = await fetch(`http://139.177.202.65:6543/user/score/111`);
         const response = await recommendationResponse.json();
         console.log('API Response:', response);
-        setRecommendedUserNumber(response.recommendations);
-        setTokenToTake(response.token_score);
-        setBtcToTake(response.btc_score);
-        // setRecommendedUserNumber(100);
-        // setTokenToTake(100);
-        // setBtcToTake(50);
+        // setRecommendedUserNumber(response.recommendations);
+        // setTokenToTake(response.token_score);
+        // setBtcToTake(response.btc_score);
+        setRecommendedUserNumber(23);
+        setTokenToTake(100);
+        setBtcToTake(50);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
