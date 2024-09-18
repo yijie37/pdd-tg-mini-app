@@ -25,7 +25,7 @@ export default function Home() {
       try {
         // Fetch recommended user number
         // const recommendationResponse = await fetch(`https://127.0.0.1:6543/user/${userId}/recommendation-scores`);
-        const recommendationResponse = await fetch(`http://139.177.202.65:6543//user/score/111`);
+        const recommendationResponse = await fetch(`http://139.177.202.65:6543/user/score/111`);
         const response = await recommendationResponse.json();
         console.log('API Response:', response);
         setRecommendedUserNumber(response.recommendedUserNumber);
