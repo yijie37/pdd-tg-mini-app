@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     // Initialize WebApp and get user_id
     WebApp.ready();
-    const initData = WebApp.initData || '';
+    // const initData = WebApp.initData || '';
     const user = WebApp.initDataUnsafe.user;
     if (user) {
       setUserId(user.id.toString());
