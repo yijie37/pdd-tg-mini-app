@@ -23,11 +23,13 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setUserId('1390026482')
       if (!userId) return;
 
       try {
         // Use the API_BASE_URL and interpolate the userId
-        const recommendationResponse = await fetch(`${API_BASE_URL}/user/score/${userId}`);
+        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score/${userId}`);
+        console.log(recommendationResponse)
         if (!recommendationResponse.ok) {
           throw new Error('API request failed');
         }
@@ -35,14 +37,14 @@ export default function Home() {
         console.log('API Response:', response);
         
         // Uncomment these lines when the API is ready
-        // setRecommendedUserNumber(response.recommendations);
-        // setTokenToTake(response.token_score);
-        // setBtcToTake(response.btc_score);
+        setRecommendedUserNumber(response.recommendations);
+        setTokenToTake(response.token_score);
+        setBtcToTake(response.btc_score);
         
         // Remove these mock values when the API is ready
-        setRecommendedUserNumber(23);
-        setTokenToTake(100);
-        setBtcToTake(50);
+        // setRecommendedUserNumber(23);
+        // setTokenToTake(100);
+        // setBtcToTake(50);
       } catch (error) {
         console.error('Error fetching data:', error);
         // Optionally, set an error state here to display to the user
