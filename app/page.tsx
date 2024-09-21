@@ -62,7 +62,6 @@ export default function Home() {
       try {
         // Use the API_BASE_URL and interpolate the userId
         const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}`);
-        // const recommendationResponse = await fetch('/api', { method: 'GET'});
         console.log(recommendationResponse)
         if (!recommendationResponse.ok) {
           throw new Error('API request failed');
@@ -81,7 +80,7 @@ export default function Home() {
       // Set recommand
       try {
         const encryptedOldUser = generateInviteCode(Number(userId));
-        const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, { method: 'POST',headers: {
+        const refResponse = await fetch(`${API_BASE_URL}/recommend`, { method: 'POST',headers: {
           'Content-Type': 'application/json',
         }, body: JSON.stringify({"old_user": encryptedOldUser, "new_user": recommender})});
         if (!refResponse.ok) {
