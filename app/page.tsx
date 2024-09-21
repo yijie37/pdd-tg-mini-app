@@ -61,7 +61,7 @@ export default function Home() {
 
       try {
         // Use the API_BASE_URL and interpolate the userId
-        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}`);
+        const recommendationResponse = await fetch(`${API_BASE_URL}/user/score?user_id=${userId}&years=${registerYears}`);
         console.log(recommendationResponse)
         if (!recommendationResponse.ok) {
           throw new Error('API request failed');
@@ -128,7 +128,7 @@ export default function Home() {
     
     console.log('handleInvite')
     // https://t.me/ppppooogg_bot/pdd123?startapp=1BSNLB
-    const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/referral-code/${userId}`)
+    const recommendationResponse = await fetch(`${API_BASE_URL}/user/referral-code/${userId}`)
     if (!recommendationResponse.ok) {
       throw new Error('API request failed');
     }
