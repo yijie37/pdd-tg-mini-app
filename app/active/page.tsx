@@ -2,17 +2,38 @@
 import WebApp from "@twa-dev/sdk";
 import { useEffect, useState, useRef } from "react";
 import { message } from 'antd';
+import generateInviteCode from '../utils/encode_decode';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://139.177.202.65:6543';
+const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
+const key = process.env.NEXT_PUBLIC_ENCRYPTION_KEY || '73939133';
+
+interface UserRegistration {
+  id: number;
+  registrationDate: string;  // format: "YYYY.MM"
+}
+
+const userRegistrations: UserRegistration[] = [
+  { id: 100000000, registrationDate: "2015.06" },
+  { id: 250000000, registrationDate: "2016.06" },
+  { id: 410000000, registrationDate: "2017.06" },
+  { id: 630000000, registrationDate: "2018.07" },
+  { id: 970000000, registrationDate: "2019.07" },
+  { id: 1370000000, registrationDate: "2020.06" },
+  { id: 1930000000, registrationDate: "2021.07" },
+  { id: 5500000000, registrationDate: "2022.06" },
+  { id: 6245952118, registrationDate: "2023.07" }
+];
 
 export default function Home() {
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
-  const [years, setYears] = useState(1);
+  const [encryptionKey, setEncryptionKey] = useState<string | null>(null);
+  const [registerYears, setRegisterYears] = useState(0);
+  const [recommender, setRecommender] = useState<string>("0");
   const dataFetchedRef = useRef(false);
   const [messageApi, contextHolder] = message.useMessage();
-
+  console.log('process.env', process)
   useEffect(() => {
     // Initialize WebApp and get user_id
     WebApp.ready();
@@ -20,7 +41,19 @@ export default function Home() {
     const user = WebApp.initDataUnsafe.user;
     if (user) {
       setUserId(user.id.toString());
+      setRegisterYears(binarySearch(user.id));
     }
+
+    if (WebApp.initDataUnsafe.start_param) {
+      // post ref request to server
+      setRecommender(WebApp.initDataUnsafe.start_param);
+    }
+
+    // Generate or retrieve an encryption key
+    console.log('process.env', process)
+    // const key = process.env.NEXT_PUBLIC_ENCRYPTION_KEY!
+    
+    setEncryptionKey(key);
   }, []);
 
   useEffect(() => {
@@ -29,12 +62,12 @@ export default function Home() {
 
     const fetchData = async () => {
       setUserId('1390026482')
-      setYears(1)
+      setRegisterYears(1)
       // if (!userId) return;
 
       try {
         // Use the API_BASE_URL and interpolate the userId
-        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${years}`);
+        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}`);
         // const recommendationResponse = await fetch('/api', { method: 'GET'});
         console.log(recommendationResponse)
         if (!recommendationResponse.ok) {
@@ -47,19 +80,58 @@ export default function Home() {
         setTokenToTake(response.token_score);
         const btcScore = Number((response.btc_score * 100).toFixed(6));
         setBtcToTake(btcScore);
-        
-        // Remove these mock values when the API is ready
-        // setRecommendedUserNumber(23);
-        // setTokenToTake(100);
-        // setBtcToTake(50);
       } catch (error) {
         console.error('Error fetching data:', error);
-        // Optionally, set an error state here to display to the user
+      }
+
+      // Set recommand
+      try {
+        const encryptedOldUser = generateInviteCode(Number(userId));
+        console.log('encryptedOldUser---', encryptedOldUser, typeof encryptedOldUser)
+        // const encryptedUserId = generateInviteCode(recommender, process.env.NEXT_PUBLIC_ENCRYPTION_KEY!);=${encryptedOldUser}&=${recommender}
+        const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, { method: 'POST',headers: {
+          'Content-Type': 'application/json',
+        }, body: JSON.stringify({"old_user": encryptedOldUser, "new_user": recommender})});
+        if (!refResponse.ok) {
+          throw new Error('API request failed');
+        }
+        const response = await refResponse.json();
+        console.log('API Response:', response);
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
   }, []);
+
+  function calculateYearsSince(dateString: string) {
+    const now = new Date();
+    const [year, month] = dateString.split('.').map(Number);
+    const registrationDate = new Date(year, month - 1);
+    const diff = now.getTime() - registrationDate.getTime();
+    return diff / (1000 * 60 * 60 * 24 * 365);  // returns decimal registerYears
+  }
+
+  function binarySearch(userId: number) {
+    let low = 0;
+    let high = userRegistrations.length - 1;
+  
+    while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        const midValue = userRegistrations[mid].id;
+  
+        if (midValue === userId) {
+            return calculateYearsSince(userRegistrations[mid].registrationDate);
+        } else if (midValue < userId) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+  
+    return 1;  
+  }
 
   async function handleInvite() {
     
