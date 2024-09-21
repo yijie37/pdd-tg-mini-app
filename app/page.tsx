@@ -59,7 +59,7 @@ export default function Home() {
     }
 
     // Generate or retrieve an encryption key
-    const key = process.env.NEXT_PUBLIC_ENCRYPTION_KEY || Fernet.generateKey();
+    const key = process.env.NEXT_PUBLIC_ENCRYPTION_KEY!
     setEncryptionKey(key);
   }, []);
 
