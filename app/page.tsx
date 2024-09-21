@@ -10,6 +10,7 @@ export default function Home() {
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
+  const [years, setYears] = useState(1);
 
   useEffect(() => {
     // Initialize WebApp and get user_id
@@ -24,11 +25,13 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       setUserId('1390026482')
+      setYears(1)
       if (!userId) return;
 
       try {
         // Use the API_BASE_URL and interpolate the userId
-        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score/${userId}`);
+        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?userId=${userId}&years=${years}`);
+        // const recommendationResponse = await fetch('/api', { method: 'GET'});
         console.log(recommendationResponse)
         if (!recommendationResponse.ok) {
           throw new Error('API request failed');
