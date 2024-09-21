@@ -56,8 +56,8 @@ export default function Home() {
     dataFetchedRef.current = true;
 
     const fetchData = async () => {
-      setUserId('1390026482')
-      setRegisterYears(1)
+      // setUserId('1390026482')
+      // setRegisterYears(1)
       // if (!userId) return;
 
       try {
