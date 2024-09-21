@@ -1,22 +1,21 @@
 // api/proxy.js
-// 该服务为 vercel serve跨域处理
+// This service is vercel serve cross-domain processing
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 export default function handler(req, res) {
     let target = ''
-    // 代理目标地址
-    // 这里使用 backend 主要用于区分 vercel serverless 的 api 路径
-    // target 替换为你跨域请求的服务器 如： http://gmall-h5-api.atguigu.cn
+    // Proxy Destination Address
+    // target Replace it with the server you requested across domains eg: http://gmall-h5-api.atguigu.cn
     if (req.url.startsWith('/api')) {
         target = 'http://139.177.202.65:6543'
     }
-    // 创建代理对象并转发请求
+    // Create a proxy object and forward the request
     createProxyMiddleware({
         target,
         changeOrigin: true,
         pathRewrite: {
-            // 通过路径重写，去除请求路径中的 `/api`
-            // 如果开启了,那么 /api/user/login 将被转发到 http://gmall-h5-api.atguigu.cn/user/login
+            // By rewriting the path, remove the `/api`
+            // If enabled, /api/user/login will be forwarded to http://gmall-h5-api.atguigu.cn/user/login
             '^/api/': '/',
         },
     })(req, res)
