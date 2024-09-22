@@ -42,13 +42,11 @@ export default function Home() {
         setRegisterYears(calculateYearsSince(userRegistrations[yearIdx].registrationDate));
       }
 
-      var recommender = "0";
+      let recommender = "0";
       if (WebApp.initDataUnsafe.start_param) {
         recommender = WebApp.initDataUnsafe.start_param
       }
       setRecommender(recommender);
-
-      console.log('process.env', process);
     };
 
     const fetchData = async () => {
@@ -89,11 +87,7 @@ export default function Home() {
     };
 
     initializeApp();
-  
-    // if (!dataFetchedRef.current) {
-      // dataFetchedRef.current = true;
     fetchData();
-    // }
   }, [userId, registerYears, recommender]);
 
   function calculateYearsSince(dateString: string) {
