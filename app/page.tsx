@@ -31,7 +31,7 @@ export default function Home() {
   const [registerYears, setRegisterYears] = useState(0);
   const [recommender, setRecommender] = useState<string>("0");
   // const dataFetchedRef = useRef(false);
-  const [messageApi, contextHolder] = message.useMessage();
+  // const [messageApi, contextHolder] = message.useMessage();
   console.log('process.env', process)
   
   useEffect(() => {
@@ -150,7 +150,7 @@ export default function Home() {
 
   return (
     <div className="bg-black h-screen px-16 py-10">
-      {contextHolder}
+      {/* {contextHolder} */}
       < img className='w-52 h-44 mx-auto' src="/images/final.svg" alt="" />
       <h3 className='mt-8 text-white text-center'>Referral Reward</h3>
       <div className='w-full border border-teal-600 rounded p-1'>
