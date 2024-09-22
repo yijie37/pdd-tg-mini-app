@@ -79,7 +79,7 @@ export default function Home() {
 
       try {
         // Use the API_BASE_URL and interpolate the userId
-        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}`);
+        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userData.id}&years=${registerYears}`);
         console.log(recommendationResponse)
         if (!recommendationResponse.ok) {
           throw new Error('API request failed');
@@ -160,20 +160,27 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-black h-screen px-16 py-10">
-      {contextHolder}
-      <img className='w-52 h-44 mx-auto' src="/images/final.svg" alt="" />
-      <h3 className='mt-8 text-white text-center'>Referral Reward</h3>
-      <div className='w-full border border-teal-600 rounded p-1'>
-        <div className='p-2 bg-lime-300 rounded-sm relative'>
-          <div className='w-20 bg-lime-500 h-4 rounded-e-lg'  style={{width: btcToTake + '%'}}></div>
-          <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcToTake}%</span>
-        </div>
-      </div>
-      <p className="text-white text-center mt-12">Token Reward</p>
-      <p className="text-white text-center mt-10"><span className="text-lime-600">{tokenToTake}</span>$AAA</p>
+    <main className="bg-black h-screen px-16 py-10">
+      {
+        userData ? (
+          <>
+            {contextHolder}
+            < img className='w-52 h-44 mx-auto' src="/images/final.svg" alt="" />
+            <h3 className='mt-8 text-white text-center'>Referral Reward</h3>
+            <div className='w-full border border-teal-600 rounded p-1'>
+              <div className='p-2 bg-lime-300 rounded-sm relative'>
+                <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcToTake + '%' }}></div>
+                <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcToTake}%</span>
+              </div>
+            </div>
+            <p className="text-white text-center mt-12">Token Reward</p>
+            <p className="text-white text-center mt-10"><span className="text-lime-600">{tokenToTake}</span>$AAA</p>
 
-      <div className="bg-lime-500 text-black text-center mt-16 h-10 leading-10 rounded-lg" onClick={handleInvite}>Invite Friends</div>
-    </div>
+            <div className="bg-lime-500 text-black text-center mt-16 h-10 leading-10 rounded-lg" onClick={handleInvite}>Invite Friends</div>
+          </>
+    ) :
+    <div>Loading...</div>
+    }
+    </main>
   );
 }
