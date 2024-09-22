@@ -33,6 +33,7 @@ const userRegistrations: UserRegistration[] = [
 ];
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
   const [userData, setUserData] = useState<UserData | null>(null)
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
@@ -66,9 +67,11 @@ export default function Home() {
 
     // Generate or retrieve an encryption key
     console.log('process.env', process)
+    setIsLoading(false)
   }, []);
 
   useEffect(() => {
+    if (isLoading) return;
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
 
@@ -112,7 +115,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, []);
+  }, [isLoading]);
 
   function calculateYearsSince(dateString: string) {
     const now = new Date();
