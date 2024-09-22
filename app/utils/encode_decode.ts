@@ -48,13 +48,13 @@ export default function generateInviteCode(userId: number): string {
     const base62Encoded = base62Encode(obfuscatedId);
     
     // encode the checksum
-    const checksumEncoded = base62Encode(checksum).padStart(3, '0'); // make it 3 characters long
+    const checksumEncoded = base62Encode(checksum).padStart(3, BASE62_ALPHABET[0]);
     
     // combine the encoded id and checksum
     const inviteCode = base62Encoded + checksumEncoded;
     
     // make the invite code 10 characters long
-    return inviteCode.slice(0, 10);
+    return inviteCode;
 }
 
 // function decodeInviteCode(inviteCode: string, key: number): number {
