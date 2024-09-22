@@ -72,14 +72,3 @@ function decodeInviteCode(inviteCode: string, key: number): number {
     
     return userId;
 }
-
-// example usage
-const key = Number(process.env.NEXT_PUBLIC_ENCRYPTION_KEY);
-// generate invite code
-const userId = 12345;
-const inviteCode = generateInviteCode(userId);
-console.log(`generate invite code: ${inviteCode}`);
-
-// decode invite code
-const decodedUserId = decodeInviteCode(inviteCode, key);
-console.log(`decode invite code: ${decodedUserId}`);

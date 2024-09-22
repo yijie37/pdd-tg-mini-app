@@ -33,7 +33,6 @@ const userRegistrations: UserRegistration[] = [
 ];
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true)
   const [userData, setUserData] = useState<UserData | null>(null)
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
@@ -43,54 +42,34 @@ export default function Home() {
   const dataFetchedRef = useRef(false);
   const [messageApi, contextHolder] = message.useMessage();
   console.log('process.env', process)
+  
   useEffect(() => {
-    // Initialize WebApp and get user_id
-    // WebApp.ready();
-    // const initData = WebApp.initData || '';
-    // const user = WebApp.initDataUnsafe.user;
-    // if (user) {
-    //   setUserId(user.id.toString());
-    //   setRegisterYears(binarySearch(user.id));
-    // }
+    const initializeApp = () => {
+      if (WebApp.initDataUnsafe.user) {
+        const user = WebApp.initDataUnsafe.user as UserData;
+        setUserData(user);
+        setUserId(user.id.toString());
+        setRegisterYears(binarySearch(user.id));
+      }
 
-    if (WebApp.initDataUnsafe.user) {
-      const user = WebApp.initDataUnsafe.user as UserData;
-      setUserData(WebApp.initDataUnsafe.user as UserData)
-      setUserId(user.id.toString());
-      setRegisterYears(binarySearch(user.id));
-    }
+      if (WebApp.initDataUnsafe.start_param) {
+        setRecommender(WebApp.initDataUnsafe.start_param);
+      }
 
-    if (WebApp.initDataUnsafe.start_param) {
-      // post ref request to server
-      setRecommender(WebApp.initDataUnsafe.start_param);
-    }
-
-    // Generate or retrieve an encryption key
-    console.log('process.env', process)
-    setIsLoading(false)
-  }, []);
-
-  useEffect(() => {
-    if (isLoading) return;
-    if (dataFetchedRef.current) return;
-    dataFetchedRef.current = true;
+      console.log('process.env', process);
+    };
 
     const fetchData = async () => {
-      // setUserId('1390026482')
-      // setRegisterYears(1)
-      // if (!userId) return;
+      if (!userId) return;
 
       try {
-        // Use the API_BASE_URL and interpolate the userId
         const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}`);
-        console.log(recommendationResponse)
         if (!recommendationResponse.ok) {
           throw new Error('API request failed');
         }
         const response = await recommendationResponse.json();
         console.log('API Response:', response);
         
-        // Uncomment these lines when the API is ready
         setTokenToTake(response.token_score);
         const btcScore = Number((response.btc_score * 100).toFixed(6));
         setBtcToTake(btcScore);
@@ -98,12 +77,15 @@ export default function Home() {
         console.error('Error fetching data:', error);
       }
 
-      // Set recommand
       try {
         const encryptedOldUser = generateInviteCode(Number(userId));
-        const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, { method: 'POST',headers: {
-          'Content-Type': 'application/json',
-        }, body: JSON.stringify({"old_user": encryptedOldUser, "new_user": recommender})});
+        const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({"old_user": encryptedOldUser, "new_user": recommender})
+        });
         if (!refResponse.ok) {
           throw new Error('API request failed');
         }
@@ -114,8 +96,13 @@ export default function Home() {
       }
     };
 
-    fetchData();
-  }, [isLoading]);
+    initializeApp();
+  
+    if (!dataFetchedRef.current) {
+      dataFetchedRef.current = true;
+      fetchData();
+    }
+  }, [userId, registerYears, recommender]);
 
   function calculateYearsSince(dateString: string) {
     const now = new Date();
@@ -163,27 +150,20 @@ export default function Home() {
   }
 
   return (
-    <main className="bg-black h-screen px-16 py-10">
-      {
-        userData ? (
-          <>
-            {contextHolder}
-            < img className='w-52 h-44 mx-auto' src="/images/final.svg" alt="" />
-            <h3 className='mt-8 text-white text-center'>Referral Reward</h3>
-            <div className='w-full border border-teal-600 rounded p-1'>
-              <div className='p-2 bg-lime-300 rounded-sm relative'>
-                <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcToTake + '%' }}></div>
-                <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcToTake}%</span>
-              </div>
-            </div>
-            <p className="text-white text-center mt-12">Token Reward</p>
-            <p className="text-white text-center mt-10"><span className="text-lime-600">{tokenToTake}</span>$AAA</p>
+    <div className="bg-black h-screen px-16 py-10">
+      {contextHolder}
+      < img className='w-52 h-44 mx-auto' src="/images/final.svg" alt="" />
+      <h3 className='mt-8 text-white text-center'>Referral Reward</h3>
+      <div className='w-full border border-teal-600 rounded p-1'>
+        <div className='p-2 bg-lime-300 rounded-sm relative'>
+          <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcToTake + '%' }}></div>
+          <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcToTake}%</span>
+        </div>
+      </div>
+      <p className="text-white text-center mt-12">Token Reward</p>
+      <p className="text-white text-center mt-10"><span className="text-lime-600">{tokenToTake}</span>$AAA</p>
 
-            <div className="bg-lime-500 text-black text-center mt-16 h-10 leading-10 rounded-lg" onClick={handleInvite}>Invite Friends</div>
-          </>
-    ) :
-    <div>Loading...</div>
-    }
-    </main>
+      <div className="bg-lime-500 text-black text-center mt-16 h-10 leading-10 rounded-lg" onClick={handleInvite}>Invite Friends</div>
+    </div>
   );
 }
