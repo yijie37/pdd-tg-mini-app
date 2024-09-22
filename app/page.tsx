@@ -4,6 +4,15 @@ import { useEffect, useState, useRef } from "react";
 import { message } from 'antd';
 import generateInviteCode from './utils/encode_decode';
 
+interface UserData {
+  id: number;
+  first_name: string;
+  last_name?: string;
+  username?: string;
+  language_code: string;
+  is_premium?: boolean;
+}
+
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
 console.log(API_BASE_URL)
 interface UserRegistration {
@@ -24,6 +33,7 @@ const userRegistrations: UserRegistration[] = [
 ];
 
 export default function Home() {
+  const [userData, setUserData] = useState<UserData | null>(null)
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
@@ -36,8 +46,15 @@ export default function Home() {
     // Initialize WebApp and get user_id
     // WebApp.ready();
     // const initData = WebApp.initData || '';
-    const user = WebApp.initDataUnsafe.user;
-    if (user) {
+    // const user = WebApp.initDataUnsafe.user;
+    // if (user) {
+    //   setUserId(user.id.toString());
+    //   setRegisterYears(binarySearch(user.id));
+    // }
+
+    if (WebApp.initDataUnsafe.user) {
+      const user = WebApp.initDataUnsafe.user as UserData;
+      setUserData(WebApp.initDataUnsafe.user as UserData)
       setUserId(user.id.toString());
       setRegisterYears(binarySearch(user.id));
     }
