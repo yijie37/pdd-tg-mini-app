@@ -1,5 +1,6 @@
 'use client'
 import WebApp from "@twa-dev/sdk";
+import { initUtils } from '@tma.js/sdk';
 import { useEffect, useState } from "react";
 import { message } from 'antd';
 import generateInviteCode from './utils/encode_decode';
@@ -135,12 +136,16 @@ export default function Home() {
       throw new Error('API request failed');
     }
     const response = await recommendationResponse.json();
-    console.log(response)
-    await navigator.clipboard.writeText(`https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`)
-    messageApi.open({
-      type: 'success',
-      content: 'Copy Success!',
-    });
+    const utils = initUtils();
+    utils.openTelegramLink(
+      `https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`
+    );
+    // console.log(response)
+    // await navigator.clipboard.writeText(`https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`)
+    // messageApi.open({
+    //   type: 'success',
+    //   content: 'Copy Success!',
+    // });
   }
 
   return (
