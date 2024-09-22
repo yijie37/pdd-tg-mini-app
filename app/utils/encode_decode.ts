@@ -15,13 +15,13 @@ function base62Encode(num: number): string {
 }
 
 // decode base62
-function base62Decode(encoded: string): number {
-    let num = 0;
-    for (let i = 0; i < encoded.length; i++) {
-        num = num * 62 + BASE62_ALPHABET.indexOf(encoded[i]);
-    }
-    return num;
-}
+// function base62Decode(encoded: string): number {
+//     let num = 0;
+//     for (let i = 0; i < encoded.length; i++) {
+//         num = num * 62 + BASE62_ALPHABET.indexOf(encoded[i]);
+//     }
+//     return num;
+// }
 
 // mix the user id with a secret key
 function obfuscateUserId(userId: number, key: number): number {
@@ -56,19 +56,19 @@ export default function generateInviteCode(userId: number): string {
     return inviteCode.slice(0, 10);
 }
 
-function decodeInviteCode(inviteCode: string, key: number): number {
-    const checksumEncoded = inviteCode.slice(-3);
-    const checksum = base62Decode(checksumEncoded);
+// function decodeInviteCode(inviteCode: string, key: number): number {
+//     const checksumEncoded = inviteCode.slice(-3);
+//     const checksum = base62Decode(checksumEncoded);
     
-    const base62Encoded = inviteCode.slice(0, -3);
+//     const base62Encoded = inviteCode.slice(0, -3);
     
-    const obfuscatedId = base62Decode(base62Encoded);
+//     const obfuscatedId = base62Decode(base62Encoded);
     
-    if (generateChecksum(obfuscatedId) !== checksum) {
-        throw new Error('Invalid invite code: checksum mismatch');
-    }
+//     if (generateChecksum(obfuscatedId) !== checksum) {
+//         throw new Error('Invalid invite code: checksum mismatch');
+//     }
     
-    const userId = obfuscateUserId(obfuscatedId, key);
+//     const userId = obfuscateUserId(obfuscatedId, key);
     
-    return userId;
-}
+//     return userId;
+// }
