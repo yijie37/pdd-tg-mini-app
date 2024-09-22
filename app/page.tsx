@@ -2,7 +2,6 @@
 import WebApp from "@twa-dev/sdk";
 import { initUtils } from '@tma.js/sdk';
 import { useEffect, useState } from "react";
-// import { message } from 'antd';
 import generateInviteCode from './utils/encode_decode';
 
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
@@ -30,8 +29,6 @@ export default function Home() {
   const [userId, setUserId] = useState<string | null>(null);
   const [registerYears, setRegisterYears] = useState(0);
   const [recommender, setRecommender] = useState<string>("0");
-  // const dataFetchedRef = useRef(false);
-  // const [messageApi, contextHolder] = message.useMessage();
   console.log('process.env', process)
   
   useEffect(() => {
@@ -130,22 +127,21 @@ export default function Home() {
   async function handleInvite() {
     
     console.log('handleInvite')
-    // https://t.me/ppppooogg_bot/pdd123?startapp=1BSNLB
-    const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/referral-code/${userId}`)
-    if (!recommendationResponse.ok) {
+    const inviteResponse = await fetch(`${API_BASE_URL}/api/user/referral-code/${userId}`)
+    if (!inviteResponse.ok) {
       throw new Error('API request failed');
     }
-    const response = await recommendationResponse.json();
+    const response = await inviteResponse.json();
     const utils = initUtils();
-    utils.openTelegramLink(
-      `https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`
-    );
-    // console.log(response)
-    // await navigator.clipboard.writeText(`https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`)
-    // messageApi.open({
-    //   type: 'success',
-    //   content: 'Copy Success!',
-    // });
+    utils.openLink(`https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`,
+      {
+        tryInstantView: true,
+        tryBrowser: false
+      }
+    )
+    // utils.openTelegramLink(
+    //   `https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`
+    // );
   }
 
   return (
