@@ -69,12 +69,17 @@ export default function Home() {
 
       try {
         const encryptedOldUser = generateInviteCode(Number(userId));
+        let encryptRecommender = recommender;
+        if(recommender == "0") {
+          encryptRecommender = generateInviteCode(0);
+        }
+
         const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({"old_user": encryptedOldUser, "new_user": recommender})
+          body: JSON.stringify({"old_user": recommender, "new_user": encryptedOldUser})
         });
         if (!refResponse.ok) {
           throw new Error('API request failed');
