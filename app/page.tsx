@@ -50,44 +50,53 @@ export default function Home() {
     const fetchData = async () => {
       if (!userId) return;
 
+      let userExists = true;
       try {
-        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}`);
-        if (!recommendationResponse.ok) {
+        const scoreResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}`);
+        if (!scoreResponse.ok) {
           throw new Error('API request failed');
         }
-        const response = await recommendationResponse.json();
-        console.log('API Response:', response);
-        
-        setTokenToTake(response.token_score);
-        const btcScore = Number((response.btc_score * 100).toFixed(6));
-        setBtcToTake(btcScore);
+        const response = await scoreResponse.json();
+        // console.log('API Response:', response);
+
+        if (response.user_id == -1) {
+          userExists = false;
+          setTokenToTake(0);
+          setBtcToTake(0.0);
+        } else {
+          setTokenToTake(response.token_score);
+          const btcScore = Number((response.btc_score * 100).toFixed(6));
+          setBtcToTake(btcScore);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
 
-      try {
-        const encryptedOldUser = generateInviteCode(Number(userId));
-        let encryptRecommender = recommender;
-        if(recommender == "0") {
-          encryptRecommender = generateInviteCode(0);
-        }
+      if (userExists) {
+        try {
+          const encryptedOldUser = generateInviteCode(Number(userId));
+          let encryptRecommender = recommender;
+          if (recommender == "0") {
+            encryptRecommender = generateInviteCode(0);
+          }
 
-        const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({"old_user": encryptRecommender, "new_user": encryptedOldUser})
-        });
-        if (!refResponse.ok) {
-          throw new Error('API request failed');
+          const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ "old_user": encryptRecommender, "new_user": encryptedOldUser })
+          });
+          if (!refResponse.ok) {
+            throw new Error('API request failed');
+          }
+          const response = await refResponse.json();
+          console.log('API Response:', response);
+        } catch (error) {
+          console.error('Error fetching data:', error);
         }
-        const response = await refResponse.json();
-        console.log('API Response:', response);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+      };
+    }
 
     initializeApp();
     fetchData();
