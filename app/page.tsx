@@ -29,7 +29,7 @@ export default function Home() {
   const [userId, setUserId] = useState<string | null>(null);
   const [registerYears, setRegisterYears] = useState(0);
   const [recommender, setRecommender] = useState<string>("0");
-  const dataFetchedRef = useRef(false);
+  // const dataFetchedRef = useRef(false);
   const [messageApi, contextHolder] = message.useMessage();
   console.log('process.env', process)
   
@@ -88,10 +88,10 @@ export default function Home() {
 
     initializeApp();
   
-    if (!dataFetchedRef.current) {
-      dataFetchedRef.current = true;
-      fetchData();
-    }
+    // if (!dataFetchedRef.current) {
+      // dataFetchedRef.current = true;
+    fetchData();
+    // }
   }, [userId, registerYears, recommender]);
 
   function calculateYearsSince(dateString: string) {
