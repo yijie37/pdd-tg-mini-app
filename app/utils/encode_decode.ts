@@ -36,7 +36,7 @@ function generateChecksum(obfuscatedId: number): number {
 
 // generateInviteCode
 export default function generateInviteCode(userId: number): string {
-    const key = Number(process.env.NEXT_PUBLIC_ENCRYPTION_KEY)
+    const key = Number(process.env.ENCRYPTION_KEY)
     // mixed with a secret key
     const obfuscatedId = obfuscateUserId(userId, key);
     
