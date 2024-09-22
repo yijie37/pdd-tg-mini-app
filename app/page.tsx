@@ -4,15 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import { message } from 'antd';
 import generateInviteCode from './utils/encode_decode';
 
-interface UserData {
-  id: number;
-  first_name: string;
-  last_name?: string;
-  username?: string;
-  language_code: string;
-  is_premium?: boolean;
-}
-
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
 console.log(API_BASE_URL)
 interface UserRegistration {
@@ -33,7 +24,6 @@ const userRegistrations: UserRegistration[] = [
 ];
 
 export default function Home() {
-  const [userData, setUserData] = useState<UserData | null>(null)
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
@@ -46,8 +36,7 @@ export default function Home() {
   useEffect(() => {
     const initializeApp = () => {
       if (WebApp.initDataUnsafe.user) {
-        const user = WebApp.initDataUnsafe.user as UserData;
-        setUserData(user);
+        const user = WebApp.initDataUnsafe.user;
         setUserId(user.id.toString());
         setRegisterYears(binarySearch(user.id));
       }
@@ -112,24 +101,27 @@ export default function Home() {
     return diff / (1000 * 60 * 60 * 24 * 365);  // returns decimal registerYears
   }
 
-  function binarySearch(userId: number) {
+  function binarySearch(userId: number): number {
     let low = 0;
     let high = userRegistrations.length - 1;
-  
+
     while (low <= high) {
-        const mid = Math.floor((low + high) / 2);
-        const midValue = userRegistrations[mid].id;
-  
-        if (midValue === userId) {
-            return calculateYearsSince(userRegistrations[mid].registrationDate);
-        } else if (midValue < userId) {
-            low = mid + 1;
-        } else {
-            high = mid - 1;
+      const mid = Math.floor((low + high) / 2);
+      const midValue = userRegistrations[mid].id;
+
+      if (midValue === userId) {
+        return mid;
+      } else if (midValue < userId) {
+        if (mid === userRegistrations.length - 1 || userRegistrations[mid + 1].id > userId) {
+          return mid;
         }
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
     }
-  
-    return 1;  
+
+    return 1; // Return 1 if userId is smaller than all IDs in the array
   }
 
   async function handleInvite() {
