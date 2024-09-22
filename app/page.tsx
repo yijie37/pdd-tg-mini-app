@@ -79,7 +79,7 @@ export default function Home() {
 
       try {
         // Use the API_BASE_URL and interpolate the userId
-        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userData.id}&years=${registerYears}`);
+        const recommendationResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}`);
         console.log(recommendationResponse)
         if (!recommendationResponse.ok) {
           throw new Error('API request failed');
