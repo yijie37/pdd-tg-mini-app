@@ -38,7 +38,8 @@ export default function Home() {
       if (WebApp.initDataUnsafe.user) {
         const user = WebApp.initDataUnsafe.user;
         setUserId(user.id.toString());
-        setRegisterYears(binarySearch(user.id));
+        const yearIdx = binarySearch(user.id);
+        setRegisterYears(calculateYearsSince(userRegistrations[yearIdx].registrationDate));
       }
 
       if (WebApp.initDataUnsafe.start_param) {
@@ -121,7 +122,7 @@ export default function Home() {
       }
     }
 
-    return 1; // Return 1 if userId is smaller than all IDs in the array
+    return userRegistrations.length - 1; // Return 1 if userId is smaller than all IDs in the array
   }
 
   async function handleInvite() {
