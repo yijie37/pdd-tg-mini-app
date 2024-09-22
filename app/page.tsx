@@ -79,7 +79,7 @@ export default function Home() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({"old_user": recommender, "new_user": encryptedOldUser})
+          body: JSON.stringify({"old_user": encryptRecommender, "new_user": encryptedOldUser})
         });
         if (!refResponse.ok) {
           throw new Error('API request failed');
