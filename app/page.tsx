@@ -39,7 +39,7 @@ export default function Home() {
         const user = WebApp.initDataUnsafe.user;
         setUserId(user.id.toString());
         const yearIdx = binarySearch(user.id);
-        setRegisterYears(calculateYearsSince(userRegistrations[yearIdx].registrationDate));
+        setRegisterYears(Math.floor(calculateYearsSince(userRegistrations[yearIdx].registrationDate)));
       }
 
       let recommender = "0";
