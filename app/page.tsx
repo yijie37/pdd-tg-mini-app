@@ -1,6 +1,6 @@
 'use client'
 import WebApp from "@twa-dev/sdk";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { message } from 'antd';
 import generateInviteCode from './utils/encode_decode';
 
@@ -42,9 +42,11 @@ export default function Home() {
         setRegisterYears(calculateYearsSince(userRegistrations[yearIdx].registrationDate));
       }
 
+      var recommender = "0";
       if (WebApp.initDataUnsafe.start_param) {
-        setRecommender(WebApp.initDataUnsafe.start_param);
+        recommender = WebApp.initDataUnsafe.start_param
       }
+      setRecommender(recommender);
 
       console.log('process.env', process);
     };
