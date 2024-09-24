@@ -1,5 +1,5 @@
 'use client'
-import WebApp from "@twa-dev/sdk";
+// import WebApp from "@twa-dev/sdk";
 import { initUtils } from '@tma.js/sdk';
 import { useEffect, useState } from "react";
 import { generateInviteCode, generateSignature } from "./utils/encode_decode";
