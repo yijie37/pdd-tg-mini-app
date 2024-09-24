@@ -78,7 +78,7 @@ export function generateInviteCode(userId: number): string {
 
 export function generateSignature(params: Record<string, string>): string {
     const sortedKeys = Object.keys(params).sort();
-    const concatenatedParams = sortedKeys.map(key => `${key}=${params[key]}`).join('');
+    const concatenatedParams = sortedKeys.map(key => `${params[key]}`).join('');
 
     return sha256(concatenatedParams + process.env.SALT);
 }
