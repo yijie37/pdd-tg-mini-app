@@ -1,4 +1,6 @@
-import { sha256 } from 'js-sha256'
+// import { sha256 } from 'js-sha256'
+// var crypto = require('crypto');
+import crypto from 'crypto'
 
 const BASE62_ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
@@ -79,6 +81,7 @@ export function generateInviteCode(userId: number): string {
 export function generateSignature(params: Record<string, string>): string {
     const sortedKeys = Object.keys(params).sort();
     const concatenatedParams = sortedKeys.map(key => `${params[key]}`).join('');
+    const hash = crypto.createHash('sha256');
 
-    return sha256(concatenatedParams + process.env.SALT);
+    return hash.update(concatenatedParams).digest('hex');
 }
