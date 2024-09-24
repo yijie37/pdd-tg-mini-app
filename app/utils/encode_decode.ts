@@ -83,5 +83,5 @@ export function generateSignature(params: Record<string, string>): string {
     const concatenatedParams = sortedKeys.map(key => `${params[key]}`).join('');
     const hash = crypto.createHash('sha256');
 
-    return hash.update(concatenatedParams).digest('hex');
+    return hash.update(concatenatedParams + process.env.SALT).digest('hex');
 }
