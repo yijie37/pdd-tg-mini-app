@@ -40,7 +40,8 @@ function generateChecksum(obfuscatedId: number): number {
 
 // generateInviteCode
 export function generateInviteCode(userId: number): string {
-    const key = Number(process.env.NEXT_PUBLIC_ENCRYPTION_KEY)
+    console.log("env 4:", process.env);
+    const key = Number(process.env.ENCRYPTION_KEY)
 
     // mixed with a secret key
     const obfuscatedId = obfuscateUserId(userId, key);
@@ -79,10 +80,11 @@ export function generateInviteCode(userId: number): string {
 // }
 
 export function generateSignature(params: Record<string, string>): string {
+    console.log("env 3:", process.env);
     const sortedKeys = Object.keys(params).sort();
     const concatenatedParams = sortedKeys.map(key => `${params[key]}`).join('');
     const hash = crypto.createHash('sha256');
-    const plainText = concatenatedParams + process.env.NEXT_PUBLIC_SALT;
+    const plainText = concatenatedParams + process.env.SALT;
 
     return hash.update(plainText).digest('hex');
 }
