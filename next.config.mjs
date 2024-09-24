@@ -5,7 +5,7 @@ const nextConfig = {
   swcMinify: true,
   output: 'export',
   env: {
-    'ENCRYPTION_KEY': process.env.ENCRYPTION_KEY
+    'ENCRYPTION_KEY': process.env.NEXT_PUBLIC_ENCRYPTION_KEY
   }
 //   rewrites: () => [
 //     {
