@@ -7,7 +7,6 @@ import { generateInviteCode, generateSignature } from "./utils/encode_decode";
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
 
 console.log("env 0", process.env.NODE_ENV);
-console.log("env 1", process.env);
 
 // interface UserRegistration {
 //   id: number;
@@ -27,7 +26,6 @@ console.log("env 1", process.env);
 // ];
 
 export default function Home() {
-  console.log("env 2", process.env);
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);

@@ -4,6 +4,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: 'export',
+  env: {
+    'ENCRYPTION_KEY': process.env.ENCRYPTION_KEY
+  }
 //   rewrites: () => [
 //     {
 //       "source": "/api/(.*)",

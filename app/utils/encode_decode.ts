@@ -40,7 +40,6 @@ function generateChecksum(obfuscatedId: number): number {
 
 // generateInviteCode
 export function generateInviteCode(userId: number): string {
-    console.log("env 4:", process.env);
     const key = Number(process.env.ENCRYPTION_KEY)
 
     // mixed with a secret key
