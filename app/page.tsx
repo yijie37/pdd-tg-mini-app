@@ -14,17 +14,17 @@ interface UserRegistration {
   registrationDate: string;  // format: "YYYY.MM"
 }
 
-const userRegistrations: UserRegistration[] = [
-  { id: 100000000, registrationDate: "2015.06" },
-  { id: 250000000, registrationDate: "2016.06" },
-  { id: 410000000, registrationDate: "2017.06" },
-  { id: 630000000, registrationDate: "2018.07" },
-  { id: 970000000, registrationDate: "2019.07" },
-  { id: 1370000000, registrationDate: "2020.06" },
-  { id: 1930000000, registrationDate: "2021.07" },
-  { id: 5500000000, registrationDate: "2022.06" },
-  { id: 6245952118, registrationDate: "2023.07" }
-];
+// const userRegistrations: UserRegistration[] = [
+//   { id: 100000000, registrationDate: "2015.06" },
+//   { id: 250000000, registrationDate: "2016.06" },
+//   { id: 410000000, registrationDate: "2017.06" },
+//   { id: 630000000, registrationDate: "2018.07" },
+//   { id: 970000000, registrationDate: "2019.07" },
+//   { id: 1370000000, registrationDate: "2020.06" },
+//   { id: 1930000000, registrationDate: "2021.07" },
+//   { id: 5500000000, registrationDate: "2022.06" },
+//   { id: 6245952118, registrationDate: "2023.07" }
+// ];
 
 export default function Home() {
   console.log("env 2", process.env);
