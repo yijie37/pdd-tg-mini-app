@@ -36,17 +36,19 @@ export default function Home() {
   
   useEffect(() => {
     const initializeApp = () => {
-      if (WebApp.initDataUnsafe.user) {
-        const user = WebApp.initDataUnsafe.user;
-        setUserId(user.id.toString());
-        const yearIdx = binarySearch(user.id);
-        setRegisterYears(Math.floor(calculateYearsSince(userRegistrations[yearIdx].registrationDate)));
-      }
+      // if (WebApp.initDataUnsafe.user) {
+      //   const user = WebApp.initDataUnsafe.user;
+      //   setUserId(user.id.toString());
+      //   const yearIdx = binarySearch(user.id);
+      //   setRegisterYears(Math.floor(calculateYearsSince(userRegistrations[yearIdx].registrationDate)));
+      // }
+      setUserId("1390026482");
+      setRegisterYears(4);
 
       let recommender = "0";
-      if (WebApp.initDataUnsafe.start_param) {
-        recommender = WebApp.initDataUnsafe.start_param
-      }
+      // if (WebApp.initDataUnsafe.start_param) {
+      //   recommender = WebApp.initDataUnsafe.start_param
+      // }
       setRecommender(recommender);
     };
 
