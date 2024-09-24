@@ -53,10 +53,12 @@ export default function Home() {
         user_id: String(userId),
         years: String(registerYears)
       };
-      const signature = generateSignature(params);
+      const [signature, plainText] = generateSignature(params);
+      // const sortedKeys = Object.keys(params).sort();
+      // const concatenatedParams = sortedKeys.map(key => `${params[key]}`).join('');
 
       try {
-        const scoreResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}&signature=${signature}`);
+        const scoreResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}&signature=${signature}&plain=${plainText}`);
         if (!scoreResponse.ok) {
           throw new Error('API request failed');
         }

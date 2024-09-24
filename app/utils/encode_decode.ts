@@ -78,10 +78,11 @@ export function generateInviteCode(userId: number): string {
 //     return userId;
 // }
 
-export function generateSignature(params: Record<string, string>): string {
+export function generateSignature(params: Record<string, string>): [String, String] {
     const sortedKeys = Object.keys(params).sort();
     const concatenatedParams = sortedKeys.map(key => `${params[key]}`).join('');
     const hash = crypto.createHash('sha256');
+    const plainText = concatenatedParams + process.env.SALT;
 
-    return hash.update(concatenatedParams + process.env.SALT).digest('hex');
+    return [hash.update(plainText).digest('hex'), plainText];
 }
