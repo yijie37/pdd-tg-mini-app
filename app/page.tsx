@@ -45,7 +45,7 @@ export default function Home() {
       setUserId("1390026482");
       setRegisterYears(4);
 
-      let recommender = "0";
+      const recommender = "0";
       // if (WebApp.initDataUnsafe.start_param) {
       //   recommender = WebApp.initDataUnsafe.start_param
       // }
@@ -103,36 +103,36 @@ export default function Home() {
     fetchData();
   }, [userId, registerYears, recommender]);
 
-  function calculateYearsSince(dateString: string) {
-    const now = new Date();
-    const [year, month] = dateString.split('.').map(Number);
-    const registrationDate = new Date(year, month - 1);
-    const diff = now.getTime() - registrationDate.getTime();
-    return diff / (1000 * 60 * 60 * 24 * 365);  // returns decimal registerYears
-  }
+  // function calculateYearsSince(dateString: string) {
+  //   const now = new Date();
+  //   const [year, month] = dateString.split('.').map(Number);
+  //   const registrationDate = new Date(year, month - 1);
+  //   const diff = now.getTime() - registrationDate.getTime();
+  //   return diff / (1000 * 60 * 60 * 24 * 365);  // returns decimal registerYears
+  // }
 
-  function binarySearch(userId: number): number {
-    let low = 0;
-    let high = userRegistrations.length - 1;
+  // function binarySearch(userId: number): number {
+  //   let low = 0;
+  //   let high = userRegistrations.length - 1;
 
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2);
-      const midValue = userRegistrations[mid].id;
+  //   while (low <= high) {
+  //     const mid = Math.floor((low + high) / 2);
+  //     const midValue = userRegistrations[mid].id;
 
-      if (midValue === userId) {
-        return mid;
-      } else if (midValue < userId) {
-        if (mid === userRegistrations.length - 1 || userRegistrations[mid + 1].id > userId) {
-          return mid;
-        }
-        low = mid + 1;
-      } else {
-        high = mid - 1;
-      }
-    }
+  //     if (midValue === userId) {
+  //       return mid;
+  //     } else if (midValue < userId) {
+  //       if (mid === userRegistrations.length - 1 || userRegistrations[mid + 1].id > userId) {
+  //         return mid;
+  //       }
+  //       low = mid + 1;
+  //     } else {
+  //       high = mid - 1;
+  //     }
+  //   }
 
-    return userRegistrations.length - 1; // Return 1 if userId is smaller than all IDs in the array
-  }
+  //   return userRegistrations.length - 1; // Return 1 if userId is smaller than all IDs in the array
+  // }
 
   async function handleInvite() {
     
