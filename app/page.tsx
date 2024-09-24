@@ -9,10 +9,10 @@ const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.20
 console.log("env 0", process.env.NODE_ENV);
 console.log("env 1", process.env);
 
-interface UserRegistration {
-  id: number;
-  registrationDate: string;  // format: "YYYY.MM"
-}
+// interface UserRegistration {
+//   id: number;
+//   registrationDate: string;  // format: "YYYY.MM"
+// }
 
 // const userRegistrations: UserRegistration[] = [
 //   { id: 100000000, registrationDate: "2015.06" },
