@@ -50,8 +50,8 @@ export default function Home() {
       if (!userId) return;
 
       const params = {
-        user_id: userId,
-        years: registerYears
+        user_id: String(userId),
+        years: String(registerYears)
       };
       const signature = generateSignature(params);
 
