@@ -2,10 +2,10 @@
 import WebApp from "@twa-dev/sdk";
 import { initUtils } from '@tma.js/sdk';
 import { useEffect, useState } from "react";
-import generateInviteCode from './utils/encode_decode';
+import { generateInviteCode, generateSignature } from "./utils/encode_decode";
 
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
-console.log(API_BASE_URL)
+
 interface UserRegistration {
   id: number;
   registrationDate: string;  // format: "YYYY.MM"
@@ -29,7 +29,6 @@ export default function Home() {
   const [userId, setUserId] = useState<string | null>(null);
   const [registerYears, setRegisterYears] = useState(0);
   const [recommender, setRecommender] = useState<string>("0");
-  console.log('process.env', process)
   
   useEffect(() => {
     const initializeApp = () => {
@@ -50,53 +49,47 @@ export default function Home() {
     const fetchData = async () => {
       if (!userId) return;
 
-      let userExists = true;
+      const params = {
+        user_id: userId,
+        years: registerYears
+      };
+      const signature = generateSignature(params);
+
       try {
-        const scoreResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}`);
+        const scoreResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}&signature=${signature}`);
         if (!scoreResponse.ok) {
           throw new Error('API request failed');
         }
         const response = await scoreResponse.json();
-        // console.log('API Response:', response);
-
-        if (response.user_id == -1) {
-          userExists = false;
-          setTokenToTake(0);
-          setBtcToTake(0.0);
-        } else {
-          setTokenToTake(response.token_score);
-          const btcScore = Number((response.btc_score * 100).toFixed(6));
-          setBtcToTake(btcScore);
-        }
+        setTokenToTake(response.token_score);
+        const btcScore = Number((response.btc_score * 100).toFixed(6));
+        setBtcToTake(btcScore);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
 
-      if (userExists) {
-        try {
-          const encryptedOldUser = generateInviteCode(Number(userId));
-          let encryptRecommender = recommender;
-          if (recommender == "0") {
-            encryptRecommender = generateInviteCode(0);
-          }
+      try {
+        const encryptedOldUser = generateInviteCode(Number(userId));
+        const refParams = {
+          old_user: encryptedOldUser,
+          new_user: recommender
+        };
+        const refSignature = generateSignature(refParams);
 
-          const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ "old_user": encryptRecommender, "new_user": encryptedOldUser })
-          });
-          if (!refResponse.ok) {
-            throw new Error('API request failed');
-          }
-          const response = await refResponse.json();
-          console.log('API Response:', response);
-        } catch (error) {
-          console.error('Error fetching data:', error);
+        const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ...refParams, signature: refSignature })
+        });
+        if (!refResponse.ok) {
+          throw new Error('API request failed');
         }
-      };
-    }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
     initializeApp();
     fetchData();
@@ -135,7 +128,6 @@ export default function Home() {
 
   async function handleInvite() {
     
-    console.log('handleInvite')
     const inviteResponse = await fetch(`${API_BASE_URL}/api/user/referral-code/${userId}`)
     if (!inviteResponse.ok) {
       throw new Error('API request failed');
@@ -155,7 +147,6 @@ export default function Home() {
 
   return (
     <div className="bg-black h-screen px-16 py-10">
-      {/* {contextHolder} */}
       < img className='w-52 h-44 mx-auto' src="/images/final.svg" alt="" />
       <h3 className='mt-8 text-white text-center'>Referral Reward</h3>
       <div className='w-full border border-teal-600 rounded p-1'>

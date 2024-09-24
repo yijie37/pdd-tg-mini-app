@@ -1,3 +1,5 @@
+import { sha256 } from 'js-sha256'
+
 const BASE62_ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 // decode base62
@@ -35,7 +37,7 @@ function generateChecksum(obfuscatedId: number): number {
 }
 
 // generateInviteCode
-export default function generateInviteCode(userId: number): string {
+export function generateInviteCode(userId: number): string {
     const key = Number(process.env.NEXT_PUBLIC_ENCRYPTION_KEY)
 
     // mixed with a secret key
@@ -73,3 +75,10 @@ export default function generateInviteCode(userId: number): string {
     
 //     return userId;
 // }
+
+export function generateSignature(params: Record<string, any>): string {
+    const sortedKeys = Object.keys(params).sort();
+    const concatenatedParams = sortedKeys.map(key => `${key}=${params[key]}`).join('');
+
+    return sha256(concatenatedParams + process.env.SALT);
+}
