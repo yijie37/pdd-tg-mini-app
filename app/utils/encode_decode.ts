@@ -36,10 +36,10 @@ function generateChecksum(obfuscatedId: number): number {
 
 // generateInviteCode
 export function generateInviteCode(userId: number): string {
-    const key = Number(process.env.NEXT_PUBLIC_ENCRYPTION_KEY)
+    // const key = Number(process.env.NEXT_PUBLIC_ENCRYPTION_KEY)
 
     // mixed with a secret key
-    const obfuscatedId = obfuscateUserId(userId, key);
+    const obfuscatedId = obfuscateUserId(userId, 73939133);
     
     // generate checksum
     const checksum = generateChecksum(obfuscatedId);
