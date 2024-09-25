@@ -41,8 +41,8 @@ export default function Home() {
       //   setRegisterYears(Math.floor(calculateYearsSince(userRegistrations[yearIdx].registrationDate)));
       // }
       const userData = WebApp.initData;
-      const data = JSON.parse(decodeURIComponent(userData));
-      console.log("data", data);
+      // const data = JSON.parse(decodeURIComponent(userData));
+      console.log("data", userData);
 
       setUserId("1390026482");
       setRegisterYears(4);
