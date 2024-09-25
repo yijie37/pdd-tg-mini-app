@@ -43,13 +43,13 @@ export default function Home() {
         setRegisterYears(Math.floor(calculateYearsSince(userRegistrations[yearIdx].registrationDate)));
       }
 
-      setUserData(encodeURIComponent(JSON.stringify(WebApp.initData)));
+      setUserData(encodeURIComponent(JSON.stringify(WebApp.initData).slice(1, -1)));
       // const userData = WebApp.initData;
       // const data = JSON.parse(decodeURIComponent(userData));
       console.log("data", userData);
 
-      setUserId("1390026482");
-      setRegisterYears(4);
+      // setUserId("1390026482");
+      // setRegisterYears(4);
 
       const recommender = "0";
       // if (WebApp.initDataUnsafe.start_param) {
