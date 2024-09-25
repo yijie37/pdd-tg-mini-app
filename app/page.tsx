@@ -34,7 +34,7 @@ export default function Home() {
   const [userData, setUserData] = useState<string | null>("null");
   const [userToken, setUserToken] = useState<string>("0");
   const [firstImage, setFirstImage] = useState<string>('');
-  const [thirdValue, setThirdValue] = useState<number>(0);
+  const [thirdValue, setThirdValue] = useState<number>(3);
   
   useEffect(() => {
     const initializeApp = () => {
@@ -76,6 +76,7 @@ export default function Home() {
 
         // Call /api/recommend after receiving the response from /api/user/score
         await callRecommendAPI(response.token);
+        await dealBtcToTake();
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -104,6 +105,16 @@ export default function Home() {
         console.error('Error calling recommend API:', error);
       }
     };
+
+    const dealBtcToTake = async() => {
+      const n = btcToTake || 3;
+      const selftFirstImage = `v${getMagnitude(n)}.svg`
+      const selfThirdValue = Math.floor(n / (10 ** (getMagnitude(n) - 1)))
+
+      console.log(selftFirstImage, selfThirdValue)
+      setFirstImage(selftFirstImage)
+      setThirdValue(selfThirdValue)
+    }
 
     initializeApp();
     fetchData();
@@ -141,19 +152,11 @@ export default function Home() {
     return userRegistrations.length - 1; // Return 1 if userId is smaller than all IDs in the array
   }
 
-  function dealBtcToTake() {
-    const n = btcToTake || 3;
-    const selftFirstImage = `v${getMagnitude(n)}.svg`
-    const selfThirdValue = Math.floor(n / (10 ** (getMagnitude(n) - 1)))
-
-    console.log(selftFirstImage, selfThirdValue)
-    setFirstImage(selftFirstImage)
-    setThirdValue(selfThirdValue)
-  }
+  
 
   function getMagnitude(n: number) {
     return n === 0 ? 0 : Math.floor(Math.log(n) / Math.log(10)) + 1;
-}
+  }
 
   async function handleInvite() {
     
@@ -175,24 +178,30 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-black h-screen px-16 py-10">
-      < img className='w-52 h-44 mx-auto' src="/images/final.webp" alt="" />
-      <h3 className='mt-8 text-white text-center'>Referral Reward</h3>
-      {/* <div className='w-full border border-teal-600 rounded p-1'>
-        <div className='p-2 bg-lime-300 rounded-sm relative'>
-          <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcToTake + '%' }}></div>
-          <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcToTake}%</span>
+    <div className="bg-black h-screen px-8 py-10 flex flex-col gap-8">
+      <img className='w-52 h-44 mx-auto' src="/images/final.webp" alt="" />
+      
+      {/* Referral Reward group */}
+      <div className="border-2 border-gray-700 rounded-lg p-4">
+        <h3 className='text-white text-center mb-4'>Referral Reward</h3>
+        <div className="flex justify-between items-center">
+          <img className="w-24" src={`/images/${firstImage}`} alt="" />
+          <img className="w-[51.2px]" src="/images/mul.svg" alt="" />
+          <img className="w-24" src={`/images/${thirdValue}.svg`} alt="" />
         </div>
-      </div> */}
-      <div className="flex justify-between">
-        <img className="w-16" src={`/images/${firstImage}`} alt="" />
-        <img className="w-16" src="/images/mul.svg" alt="" />
-        <img className="w-16" src={`/images/${thirdValue}.svg`} alt="" />
       </div>
-      <p className="text-white text-center mt-12">Token Reward</p>
-      <p className="text-white text-center mt-10"><span className="text-lime-600">{tokenToTake}</span> $VIRUS</p>
 
-      <div className="bg-lime-500 text-black text-center mt-16 h-10 leading-10 rounded-lg" onClick={handleInvite}>Infect Others</div>
+      {/* Token Reward group */}
+      <div className="border-2 border-gray-700 rounded-lg p-4">
+        <p className="text-white text-center mb-4">Token Reward</p>
+        <p className="text-white text-center">
+          <span className="text-lime-600">{tokenToTake}</span> $VIRUS
+        </p>
+      </div>
+
+      <div className="bg-lime-500 text-black text-center mt-auto h-10 leading-10 rounded-lg" onClick={handleInvite}>
+        Infect Others
+      </div>
     </div>
   );
 }
