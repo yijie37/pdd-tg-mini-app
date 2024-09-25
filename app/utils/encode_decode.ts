@@ -1,7 +1,3 @@
-// import { sha256 } from 'js-sha256'
-// var crypto = require('crypto');
-import crypto from 'crypto'
-
 const BASE62_ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 // decode base62
@@ -77,13 +73,3 @@ export function generateInviteCode(userId: number): string {
     
 //     return userId;
 // }
-
-export function generateSignature(params: Record<string, string>): string {
-    console.log("env 3:", process.env);
-    const sortedKeys = Object.keys(params).sort();
-    const concatenatedParams = sortedKeys.map(key => `${params[key]}`).join('');
-    const hash = crypto.createHash('sha256');
-    const plainText = concatenatedParams + process.env.SALT;
-
-    return hash.update(plainText).digest('hex');
-}

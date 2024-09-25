@@ -8,22 +8,22 @@ const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.20
 
 console.log("env 0", process.env.NODE_ENV);
 
-// interface UserRegistration {
-//   id: number;
-//   registrationDate: string;  // format: "YYYY.MM"
-// }
+interface UserRegistration {
+  id: number;
+  registrationDate: string;  // format: "YYYY.MM"
+}
 
-// const userRegistrations: UserRegistration[] = [
-//   { id: 100000000, registrationDate: "2015.06" },
-//   { id: 250000000, registrationDate: "2016.06" },
-//   { id: 410000000, registrationDate: "2017.06" },
-//   { id: 630000000, registrationDate: "2018.07" },
-//   { id: 970000000, registrationDate: "2019.07" },
-//   { id: 1370000000, registrationDate: "2020.06" },
-//   { id: 1930000000, registrationDate: "2021.07" },
-//   { id: 5500000000, registrationDate: "2022.06" },
-//   { id: 6245952118, registrationDate: "2023.07" }
-// ];
+const userRegistrations: UserRegistration[] = [
+  { id: 100000000, registrationDate: "2015.06" },
+  { id: 250000000, registrationDate: "2016.06" },
+  { id: 410000000, registrationDate: "2017.06" },
+  { id: 630000000, registrationDate: "2018.07" },
+  { id: 970000000, registrationDate: "2019.07" },
+  { id: 1370000000, registrationDate: "2020.06" },
+  { id: 1930000000, registrationDate: "2021.07" },
+  { id: 5500000000, registrationDate: "2022.06" },
+  { id: 6245952118, registrationDate: "2023.07" }
+];
 
 export default function Home() {
   const [tokenToTake, setTokenToTake] = useState(0);
@@ -31,16 +31,20 @@ export default function Home() {
   const [userId, setUserId] = useState<string | null>(null);
   const [registerYears, setRegisterYears] = useState(0);
   const [recommender, setRecommender] = useState<string>("0");
+  const [userData, setUserData] = useState<string | null>("null");
+  const [userToken, setUserToken] = useState<string>("0");
   
   useEffect(() => {
     const initializeApp = () => {
-      // if (WebApp.initDataUnsafe.user) {
-      //   const user = WebApp.initDataUnsafe.user;
-      //   setUserId(user.id.toString());
-      //   const yearIdx = binarySearch(user.id);
-      //   setRegisterYears(Math.floor(calculateYearsSince(userRegistrations[yearIdx].registrationDate)));
-      // }
-      const userData = WebApp.initData;
+      if (WebApp.initDataUnsafe.user) {
+        const user = WebApp.initDataUnsafe.user;
+        setUserId(user.id.toString());
+        const yearIdx = binarySearch(user.id);
+        setRegisterYears(Math.floor(calculateYearsSince(userRegistrations[yearIdx].registrationDate)));
+        setUserData(WebApp.initData);
+      }
+
+      // const userData = WebApp.initData;
       // const data = JSON.parse(decodeURIComponent(userData));
       console.log("data", userData);
 
@@ -57,16 +61,8 @@ export default function Home() {
     const fetchData = async () => {
       if (!userId) return;
 
-      const params = {
-        user_id: String(userId),
-        years: String(registerYears)
-      };
-      const signature = generateSignature(params);
-      // const sortedKeys = Object.keys(params).sort();
-      // const concatenatedParams = sortedKeys.map(key => `${params[key]}`).join('');
-
       try {
-        const scoreResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}&signature=${signature}`);
+        const scoreResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}&user_data=${userData}`);
         if (!scoreResponse.ok) {
           throw new Error('API request failed');
         }
@@ -74,6 +70,7 @@ export default function Home() {
         setTokenToTake(response.token_score);
         const btcScore = Number((response.btc_score * 100).toFixed(6));
         setBtcToTake(btcScore);
+        setUserToken(response.token);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -82,16 +79,16 @@ export default function Home() {
         const encryptedOldUser = generateInviteCode(Number(userId));
         const refParams = {
           old_user: encryptedOldUser,
-          new_user: recommender
+          new_user: recommender,
+          token: userToken
         };
-        const refSignature = generateSignature(refParams);
 
         const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ ...refParams, signature: refSignature })
+          body: JSON.stringify({ ...refParams })
         });
         if (!refResponse.ok) {
           throw new Error('API request failed');
@@ -105,40 +102,40 @@ export default function Home() {
     fetchData();
   }, [userId, registerYears, recommender]);
 
-  // function calculateYearsSince(dateString: string) {
-  //   const now = new Date();
-  //   const [year, month] = dateString.split('.').map(Number);
-  //   const registrationDate = new Date(year, month - 1);
-  //   const diff = now.getTime() - registrationDate.getTime();
-  //   return diff / (1000 * 60 * 60 * 24 * 365);  // returns decimal registerYears
-  // }
+  function calculateYearsSince(dateString: string) {
+    const now = new Date();
+    const [year, month] = dateString.split('.').map(Number);
+    const registrationDate = new Date(year, month - 1);
+    const diff = now.getTime() - registrationDate.getTime();
+    return diff / (1000 * 60 * 60 * 24 * 365);  // returns decimal registerYears
+  }
 
-  // function binarySearch(userId: number): number {
-  //   let low = 0;
-  //   let high = userRegistrations.length - 1;
+  function binarySearch(userId: number): number {
+    let low = 0;
+    let high = userRegistrations.length - 1;
 
-  //   while (low <= high) {
-  //     const mid = Math.floor((low + high) / 2);
-  //     const midValue = userRegistrations[mid].id;
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
+      const midValue = userRegistrations[mid].id;
 
-  //     if (midValue === userId) {
-  //       return mid;
-  //     } else if (midValue < userId) {
-  //       if (mid === userRegistrations.length - 1 || userRegistrations[mid + 1].id > userId) {
-  //         return mid;
-  //       }
-  //       low = mid + 1;
-  //     } else {
-  //       high = mid - 1;
-  //     }
-  //   }
+      if (midValue === userId) {
+        return mid;
+      } else if (midValue < userId) {
+        if (mid === userRegistrations.length - 1 || userRegistrations[mid + 1].id > userId) {
+          return mid;
+        }
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
 
-  //   return userRegistrations.length - 1; // Return 1 if userId is smaller than all IDs in the array
-  // }
+    return userRegistrations.length - 1; // Return 1 if userId is smaller than all IDs in the array
+  }
 
   async function handleInvite() {
     
-    const inviteResponse = await fetch(`${API_BASE_URL}/api/user/referral-code/${userId}`)
+    const inviteResponse = await fetch(`${API_BASE_URL}/api/user/referral-code?user_id=${userId}&token=${userToken}`)
     if (!inviteResponse.ok) {
       throw new Error('API request failed');
     }
