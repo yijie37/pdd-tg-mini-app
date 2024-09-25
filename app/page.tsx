@@ -76,10 +76,10 @@ export default function Home() {
       }
 
       try {
-        const encryptedOldUser = generateInviteCode(Number(userId));
+        const encryptedNewUser = generateInviteCode(Number(userId));
         const refParams = {
-          old_user: encryptedOldUser,
-          new_user: recommender,
+          old_user: recommender,
+          new_user: encryptedNewUser,
           token: userToken
         };
 
