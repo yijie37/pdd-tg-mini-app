@@ -44,18 +44,15 @@ export default function Home() {
       }
 
       setUserData(encodeURIComponent(JSON.stringify(WebApp.initData).slice(1, -1)));
-      // const userData = WebApp.initData;
-      // const data = JSON.parse(decodeURIComponent(userData));
       console.log("data", userData);
 
       // setUserId("1390026482");
       // setRegisterYears(4);
 
-      const recommender = "0";
-      // if (WebApp.initDataUnsafe.start_param) {
-      //   recommender = WebApp.initDataUnsafe.start_param
-      // }
-      setRecommender(recommender);
+      // const recommender = "0";
+      if (WebApp.initDataUnsafe.start_param) {
+        setRecommender(WebApp.initDataUnsafe.start_param);
+      }
     };
 
     const fetchData = async () => {
@@ -63,7 +60,9 @@ export default function Home() {
 
       try {
         const scoreResponse = await fetch(`${API_BASE_URL}/api/user/score?user_id=${userId}&years=${registerYears}&user_data=${userData}`);
+        console.log("scoreResponse", scoreResponse);
         if (!scoreResponse.ok) {
+          console.log("score failed");
           throw new Error('API request failed');
         }
         const response = await scoreResponse.json();
