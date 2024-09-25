@@ -190,9 +190,9 @@ export default function Home() {
         <img className="w-16" src={`/images/${thirdValue}.svg`} alt="" />
       </div>
       <p className="text-white text-center mt-12">Token Reward</p>
-      <p className="text-white text-center mt-10"><span className="text-lime-600">{tokenToTake}</span>$AAA</p>
+      <p className="text-white text-center mt-10"><span className="text-lime-600">{tokenToTake}</span> $VIRUS</p>
 
-      <div className="bg-lime-500 text-black text-center mt-16 h-10 leading-10 rounded-lg" onClick={handleInvite}>Invite Friends</div>
+      <div className="bg-lime-500 text-black text-center mt-16 h-10 leading-10 rounded-lg" onClick={handleInvite}>Infect Others</div>
     </div>
   );
 }
