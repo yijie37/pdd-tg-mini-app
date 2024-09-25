@@ -69,7 +69,7 @@ export default function Home() {
         }
         const response = await scoreResponse.json();
         setTokenToTake(response.token_score);
-        const btcScore = Number((response.btc_score * 100).toFixed(6));
+        const btcScore = response.btc_score;
         setBtcToTake(btcScore);
         setUserToken(response.token);
         console.log("response", response);
@@ -166,7 +166,7 @@ export default function Home() {
     }
     const response = await inviteResponse.json();
     const utils = initUtils();
-    utils.openLink(`https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`,
+    utils.openLink(`https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}\nInfect as many people as possible.`,
       {
         tryInstantView: true,
         tryBrowser: false
@@ -179,15 +179,15 @@ export default function Home() {
 
   return (
     <div className="bg-black h-screen px-8 py-10 flex flex-col gap-8">
-      <img className='w-52 h-44 mx-auto' src="/images/final.webp" alt="" />
+      <img className='w-39 h-33 mx-auto' src="/images/final.webp" alt="" />
       
       {/* Referral Reward group */}
       <div className="border-2 border-gray-700 rounded-lg p-4">
         <h3 className='text-white text-center mb-4'>Referral Reward</h3>
         <div className="flex justify-between items-center">
-          <img className="w-24" src={`/images/${firstImage}`} alt="" />
-          <img className="w-[51.2px]" src="/images/mul.svg" alt="" />
-          <img className="w-24" src={`/images/${thirdValue}.svg`} alt="" />
+          <img className="w-20" src={`/images/${firstImage}`} alt="" />
+          <img className="w-[32px]" src="/images/mul.svg" alt="" />
+          <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
         </div>
       </div>
 
