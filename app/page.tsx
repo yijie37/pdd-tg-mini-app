@@ -71,16 +71,22 @@ export default function Home() {
         const btcScore = Number((response.btc_score * 100).toFixed(6));
         setBtcToTake(btcScore);
         setUserToken(response.token);
+        console.log("response", response);
+
+        // Call /api/recommend after receiving the response from /api/user/score
+        await callRecommendAPI(response.token);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
+    };
 
+    const callRecommendAPI = async (token: string) => {
       try {
         const encryptedNewUser = generateInviteCode(Number(userId));
         const refParams = {
           old_user: recommender,
           new_user: encryptedNewUser,
-          token: userToken
+          token: token
         };
 
         const refResponse = await fetch(`${API_BASE_URL}/api/recommend`, {
@@ -94,7 +100,7 @@ export default function Home() {
           throw new Error('API request failed');
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error calling recommend API:', error);
       }
     };
 
