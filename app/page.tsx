@@ -1,5 +1,5 @@
 'use client'
-// import WebApp from "@twa-dev/sdk";
+import WebApp from "@twa-dev/sdk";
 import { initUtils } from '@tma.js/sdk';
 import { useEffect, useState } from "react";
 import { generateInviteCode, generateSignature } from "./utils/encode_decode";
@@ -40,6 +40,10 @@ export default function Home() {
       //   const yearIdx = binarySearch(user.id);
       //   setRegisterYears(Math.floor(calculateYearsSince(userRegistrations[yearIdx].registrationDate)));
       // }
+      const userData = WebApp.initData;
+      const data = JSON.parse(decodeURIComponent(userData));
+      console.log("data", data);
+
       setUserId("1390026482");
       setRegisterYears(4);
 
