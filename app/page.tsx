@@ -2,7 +2,7 @@
 import WebApp from "@twa-dev/sdk";
 import { initUtils } from '@tma.js/sdk';
 import { useEffect, useState } from "react";
-import { generateInviteCode, generateSignature } from "./utils/encode_decode";
+import { generateInviteCode } from "./utils/encode_decode";
 
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
 
