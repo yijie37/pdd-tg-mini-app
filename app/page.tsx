@@ -33,6 +33,8 @@ export default function Home() {
   const [recommender, setRecommender] = useState<string>("0");
   const [userData, setUserData] = useState<string | null>("null");
   const [userToken, setUserToken] = useState<string>("0");
+  const [firstImage, setFirstImage] = useState<string>('');
+  const [thirdValue, setThirdValue] = useState<number>(0);
   
   useEffect(() => {
     const initializeApp = () => {
@@ -105,6 +107,7 @@ export default function Home() {
 
     initializeApp();
     fetchData();
+    dealBtcToTake();
   }, [userId, registerYears, recommender]);
 
   function calculateYearsSince(dateString: string) {
@@ -138,6 +141,20 @@ export default function Home() {
     return userRegistrations.length - 1; // Return 1 if userId is smaller than all IDs in the array
   }
 
+  function dealBtcToTake() {
+    const n = btcToTake || 3;
+    const selftFirstImage = `v${getMagnitude(n)}.svg`
+    const selfThirdValue = Math.floor(n / (10 ** (getMagnitude(n) - 1)))
+
+    console.log(selftFirstImage, selfThirdValue)
+    setFirstImage(selftFirstImage)
+    setThirdValue(selfThirdValue)
+  }
+
+  function getMagnitude(n: number) {
+    return n === 0 ? 0 : Math.floor(Math.log(n) / Math.log(10)) + 1;
+}
+
   async function handleInvite() {
     
     const inviteResponse = await fetch(`${API_BASE_URL}/api/user/referral-code?user_id=${userId}&token=${userToken}`)
@@ -159,13 +176,18 @@ export default function Home() {
 
   return (
     <div className="bg-black h-screen px-16 py-10">
-      < img className='w-52 h-44 mx-auto' src="/images/final.svg" alt="" />
+      < img className='w-52 h-44 mx-auto' src="/images/final.webp" alt="" />
       <h3 className='mt-8 text-white text-center'>Referral Reward</h3>
-      <div className='w-full border border-teal-600 rounded p-1'>
+      {/* <div className='w-full border border-teal-600 rounded p-1'>
         <div className='p-2 bg-lime-300 rounded-sm relative'>
           <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcToTake + '%' }}></div>
           <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcToTake}%</span>
         </div>
+      </div> */}
+      <div className="flex justify-between">
+        <img className="w-16" src={`/images/${firstImage}`} alt="" />
+        <img className="w-16" src="/images/mul.svg" alt="" />
+        <img className="w-16" src={`/images/${thirdValue}.svg`} alt="" />
       </div>
       <p className="text-white text-center mt-12">Token Reward</p>
       <p className="text-white text-center mt-10"><span className="text-lime-600">{tokenToTake}</span>$AAA</p>
