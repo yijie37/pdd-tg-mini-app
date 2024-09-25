@@ -41,9 +41,9 @@ export default function Home() {
         setUserId(user.id.toString());
         const yearIdx = binarySearch(user.id);
         setRegisterYears(Math.floor(calculateYearsSince(userRegistrations[yearIdx].registrationDate)));
-        setUserData(encodeURIComponent(JSON.stringify(WebApp.initData)));
       }
 
+      setUserData(encodeURIComponent(JSON.stringify(WebApp.initData)));
       // const userData = WebApp.initData;
       // const data = JSON.parse(decodeURIComponent(userData));
       console.log("data", userData);
