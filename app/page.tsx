@@ -179,7 +179,7 @@ export default function Home() {
 
   return (
     <div className="bg-black h-screen px-8 py-10 flex flex-col gap-8">
-      <img className='w-39 h-33 mx-auto' src="/images/final.webp" alt="" />
+      <img className='w-24 h-20 mx-auto' src="/images/final.webp" alt="" />
       
       {/* Referral Reward group */}
       <div className="border-2 border-gray-700 rounded-lg p-4">
