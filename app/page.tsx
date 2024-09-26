@@ -166,7 +166,7 @@ export default function Home() {
     }
     const response = await inviteResponse.json();
     const utils = initUtils();
-    utils.openLink(`https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}<br>Infect as many people as possible.`,
+    utils.openLink(`https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${encodeURIComponent(`${response.referral_code}<br>Infect as many people as possible.`)}`,
       {
         tryInstantView: true,
         tryBrowser: false
