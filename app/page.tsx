@@ -1,7 +1,7 @@
 'use client'
 import WebApp from "@twa-dev/sdk";
 import { initUtils } from '@tma.js/sdk';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { generateInviteCode } from "./utils/encode_decode";
 
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
@@ -70,13 +70,12 @@ export default function Home() {
         const response = await scoreResponse.json();
         setTokenToTake(response.token_score);
         const btcScore = response.btc_score;
-        setBtcToTake(btcScore);
+        setBtcToTake(btcScore || 3);
         setUserToken(response.token);
         console.log("response", response);
 
         // Call /api/recommend after receiving the response from /api/user/score
         await callRecommendAPI(response.token);
-        await dealBtcToTake();
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -106,8 +105,15 @@ export default function Home() {
       }
     };
 
+    initializeApp();
+    fetchData();
+    
+  }, [userId, registerYears, recommender]);
+
+  useEffect(() => {
     const dealBtcToTake = async() => {
-      const n = btcToTake || 3;
+      console.log("dealBtcToTake - btcToTake", btcToTake)
+      const n = btcToTake;
       const selftFirstImage = `v${getMagnitude(n)}.svg`
       const selfThirdValue = Math.floor(n / (10 ** (getMagnitude(n) - 1)))
 
@@ -115,11 +121,8 @@ export default function Home() {
       setFirstImage(selftFirstImage)
       setThirdValue(selfThirdValue)
     }
-
-    initializeApp();
-    fetchData();
     dealBtcToTake();
-  }, [userId, registerYears, recommender]);
+  }, [btcToTake]);
 
   function calculateYearsSince(dateString: string) {
     const now = new Date();
@@ -182,14 +185,14 @@ export default function Home() {
       <img className='w-32 h-28 mx-auto' src="/images/final.webp" alt="" />
       
       {/* Referral Reward group */}
-      <div className="border-2 border-gray-700 rounded-lg p-4">
+      {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4">
         <h3 className='text-white text-center mb-4'>Referral Reward</h3>
         <div className="flex justify-between items-center">
           <img className="w-20" src={`/images/${firstImage}`} alt="" />
           <img className="w-[32px]" src="/images/mul.svg" alt="" />
           <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
         </div>
-      </div>
+      </div>}
 
       {/* Token Reward group */}
       <div className="border-2 border-gray-700 rounded-lg p-4">
