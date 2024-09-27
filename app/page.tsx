@@ -29,6 +29,7 @@ const userRegistrations: UserRegistration[] = [
 export default function Home() {
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
+  const [btcProgress, setBtcProgress] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
   const [registerYears, setRegisterYears] = useState(0);
   const [recommender, setRecommender] = useState<string>("0");
@@ -72,6 +73,9 @@ export default function Home() {
         setTokenToTake(response.token_score);
         const btcScore = response.btc_score;
         setBtcToTake(btcScore || 3);
+        const btcProgress = response.btc_progress;
+        setBtcProgress(btcProgress);
+
         setUserToken(response.token);
         console.log("response", response);
 
@@ -175,9 +179,6 @@ export default function Home() {
         tryBrowser: false
       }
     )
-    // utils.openTelegramLink(
-    //   `https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`
-    // );
   }
 
   return (
@@ -187,6 +188,12 @@ export default function Home() {
       {/* Referral Reward group */}
       {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
         <h3 className='text-white text-center mb-4'>Referral Reward</h3>
+        <div className='w-full border border-red-500 rounded p-1'>
+          <div className='p-2 bg-red-300 rounded-sm relative'>
+            <div className='w-20 bg-red-500 h-4 rounded-e-lg' style={{ width: count + '%' }}></div>
+            <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-white translate-x-50'>{count}%</span>
+          </div>
+        </div>
         <div className="flex justify-between items-center ">
           <img className="w-20" src={`/images/${firstImage}`} alt="" />
           <img className="w-[32px]" src="/images/mul.svg" alt="" />
