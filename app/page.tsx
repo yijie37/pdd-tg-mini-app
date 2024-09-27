@@ -188,12 +188,12 @@ export default function Home() {
       {/* Referral Reward group */}
       {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
         <h3 className='text-white text-center mb-4'>Referral Reward</h3>
-        <div className='w-full border border-red-500 rounded p-1'>
-          <div className='p-2 bg-red-300 rounded-sm relative'>
-            <div className='w-20 bg-red-500 h-4 rounded-e-lg' style={{ width: count + '%' }}></div>
-            <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-white translate-x-50'>{count}%</span>
+        <div className='w-full border border-teal-600 rounded p-1'>
+          <div className='p-2 bg-lime-300 rounded-sm relative'>
+            <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress + '%' }}></div>
+            <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcProgress}%</span>
           </div>
-        </div>
+        </div> 
         <div className="flex justify-between items-center ">
           <img className="w-20" src={`/images/${firstImage}`} alt="" />
           <img className="w-[32px]" src="/images/mul.svg" alt="" />
