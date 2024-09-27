@@ -6,12 +6,13 @@ interface IPopoverProps {
   headImg: string;
   count: number;
   position?: string;
+  hideHeaderImg?: boolean;
 }
 
-const App: React.FC<IPopoverProps> = ({ headImg, count }) => {
+const App: React.FC<IPopoverProps> = ({ headImg, count, hideHeaderImg=true }) => {
   const content = (
-    <div>
-      <img className='w-12 mx-auto' src={`/images/${headImg}`} alt="Head Image" />
+    <div className='text-white'>
+      {hideHeaderImg && <img className='w-12 mx-auto' src={`/images/${headImg}`} alt="Head Image" />}
       <p>Congrats on the INFECTION mission!</p>
       <p>Now keep on infecting!</p>
       <p>Every {count} more person you infected, you will earn a {count} virus!</p>
@@ -20,7 +21,7 @@ const App: React.FC<IPopoverProps> = ({ headImg, count }) => {
 
   return (
     <Popover content={content}>
-      <img className="w-12" src="/images/Infomation.svg" alt="Information Icon" />
+      <img className="w-6 pos-right" src="/images/Infomation.svg" alt="Information Icon" />
     </Popover>
   );
 };

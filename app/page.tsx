@@ -185,9 +185,9 @@ export default function Home() {
       <img className='w-32 h-28 mx-auto' src="/images/final.webp" alt="" />
       
       {/* Referral Reward group */}
-      {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4">
+      {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
         <h3 className='text-white text-center mb-4'>Referral Reward</h3>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center ">
           <img className="w-20" src={`/images/${firstImage}`} alt="" />
           <img className="w-[32px]" src="/images/mul.svg" alt="" />
           <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
@@ -198,15 +198,15 @@ export default function Home() {
       </div>}
 
       {/* Token Reward group */}
-      <div className="border-2 border-gray-700 rounded-lg p-4">
+      <div className="border-2 border-gray-700 rounded-lg p-4 relative">
         <p className="text-white text-center mb-4">Token Reward</p>
         <p className="text-white text-center">
           <span className="text-lime-600">{tokenToTake}</span> $VIRUS
         </p>
+        <PopoverCom headImg={firstImage} count={thirdValue} hideHeaderImg={false}>
+          <img className="w-12" src="/images/Infomation.svg" alt="" />
+        </PopoverCom>
       </div>
-      <PopoverCom headImg={firstImage} count={thirdValue}>
-        <img className="w-12" src="/images/Infomation.svg" alt="" />
-      </PopoverCom>
       <div className="bg-lime-500 text-black text-center mt-auto h-10 leading-10 rounded-lg" onClick={handleInvite}>
         Infect Others
       </div>
