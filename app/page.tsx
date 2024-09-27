@@ -202,7 +202,6 @@ export default function Home() {
             <img className="w-12" src="/images/Infomation.svg" alt="" />
           </PopoverCom>
         </div> */}
-      </div>}
 
       {/* Token Reward group */}
       <div className="border-2 border-gray-700 rounded-lg p-4 relative">
