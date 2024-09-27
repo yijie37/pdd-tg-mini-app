@@ -3,6 +3,7 @@ import WebApp from "@twa-dev/sdk";
 import { initUtils } from '@tma.js/sdk';
 import React, { useEffect, useState } from "react";
 import { generateInviteCode } from "./utils/encode_decode";
+import PopoverCom from './components/Popover';
 
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
 
@@ -107,7 +108,6 @@ export default function Home() {
 
     initializeApp();
     fetchData();
-    
   }, [userId, registerYears, recommender]);
 
   useEffect(() => {
@@ -191,6 +191,9 @@ export default function Home() {
           <img className="w-20" src={`/images/${firstImage}`} alt="" />
           <img className="w-[32px]" src="/images/mul.svg" alt="" />
           <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
+          <PopoverCom headImg={firstImage} count={thirdValue}>
+            <img className="w-12" src="/images/Infomation.svg" alt="" />
+          </PopoverCom>
         </div>
       </div>}
 
@@ -201,7 +204,9 @@ export default function Home() {
           <span className="text-lime-600">{tokenToTake}</span> $VIRUS
         </p>
       </div>
-
+      <PopoverCom headImg={firstImage} count={thirdValue}>
+        <img className="w-12" src="/images/Infomation.svg" alt="" />
+      </PopoverCom>
       <div className="bg-lime-500 text-black text-center mt-auto h-10 leading-10 rounded-lg" onClick={handleInvite}>
         Infect Others
       </div>
