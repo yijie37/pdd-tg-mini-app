@@ -29,7 +29,7 @@ const userRegistrations: UserRegistration[] = [
 export default function Home() {
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
-  const [btcProgress, setBtcProgress] = useState(0);
+  // const [btcProgress, setBtcProgress] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
   const [registerYears, setRegisterYears] = useState(0);
   const [recommender, setRecommender] = useState<string>("0");
@@ -73,8 +73,8 @@ export default function Home() {
         setTokenToTake(response.token_score);
         const btcScore = response.btc_score;
         setBtcToTake(btcScore || 3);
-        const btcProgress = response.btc_progress;
-        setBtcProgress(btcProgress);
+        // const btcProgress = response.btc_progress;
+        // setBtcProgress(btcProgress);
 
         setUserToken(response.token);
         console.log("response", response);
