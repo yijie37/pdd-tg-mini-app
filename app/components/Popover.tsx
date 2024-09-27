@@ -13,9 +13,8 @@ const App: React.FC<IPopoverProps> = ({ headImg, count, hideHeaderImg=true }) =>
   const content = (
     <div className='text-white'>
       {hideHeaderImg && <img className='w-12 mx-auto' src={`/images/${headImg}`} alt="Head Image" />}
-      <p>Congrats on the INFECTION mission!</p>
-      <p>Now keep on infecting!</p>
-      <p>Every {count} more person you infected, you will earn a {count} virus!</p>
+      <p className='mb-1'>Now keep on infecting!</p>
+      <p className='mb-1'>The more you infected, the more virus you will earn!</p>
     </div>
   );
 
