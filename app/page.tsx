@@ -194,14 +194,14 @@ export default function Home() {
             <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcProgress}%</span>
           </div>
         </div> 
-        <div className="flex justify-between items-center ">
+        {/* <div className="flex justify-between items-center ">
           <img className="w-20" src={`/images/${firstImage}`} alt="" />
           <img className="w-[32px]" src="/images/mul.svg" alt="" />
           <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
           <PopoverCom headImg={firstImage} count={thirdValue}>
             <img className="w-12" src="/images/Infomation.svg" alt="" />
           </PopoverCom>
-        </div>
+        </div> */}
       </div>}
 
       {/* Token Reward group */}
