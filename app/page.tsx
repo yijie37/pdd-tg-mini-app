@@ -193,7 +193,7 @@ export default function Home() {
             <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress + '%' }}></div>
             <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcProgress}%</span>
           </div>
-        </div> 
+        </div>
         {/* <div className="flex justify-between items-center ">
           <img className="w-20" src={`/images/${firstImage}`} alt="" />
           <img className="w-[32px]" src="/images/mul.svg" alt="" />
