@@ -200,7 +200,7 @@ export default function Home() {
             <img className="w-20" src={`/images/${firstImage}`} alt="" />
             <img className="w-[32px]" src="/images/mul.svg" alt="" />
             <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
-            <PopoverCom headImg={firstImage} count={thirdValue}>
+            <PopoverCom headImg={firstImage} firstLine="Now keep on infecting!" secondLine="The more you infected, the more virus you will earn!">
               <img className="w-12" src="/images/Infomation.svg" alt="" />
             </PopoverCom>
           </div>
@@ -213,7 +213,7 @@ export default function Home() {
         <p className="text-white text-center">
           <span className="text-lime-600">{tokenToTake}</span> $VIRUS
         </p>
-        <PopoverCom headImg={firstImage} count={thirdValue} hideHeaderImg={false}>
+        <PopoverCom headImg={firstImage} firstLine="Attention!" secondLine="If you do not get or give up ETH reward, you can get token reward instead." hideHeaderImg={false}>
           <img className="w-12" src="/images/Infomation.svg" alt="" />
         </PopoverCom>
       </div>
