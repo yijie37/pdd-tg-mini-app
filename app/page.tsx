@@ -192,7 +192,7 @@ export default function Home() {
           <div className='w-full border border-teal-600 rounded p-1'>
             <div className='p-2 bg-lime-300 rounded-sm relative'>
               <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
-              <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{btcProgress * 100}%</span>
+              <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{(btcProgress * 100).toFixed(6)}%</span>
             </div>
           </div>
         ): (
@@ -200,14 +200,14 @@ export default function Home() {
               <div className='w-full border border-teal-600 rounded p-1'>
                 <div className='p-2 bg-lime-300 rounded-sm relative'>
                   <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
-                  <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>99.0%</span>
+                  <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{(btcProgress * 100).toFixed(6)}%</span>
                 </div>
               </div>
               <div className="flex justify-between items-center ">
                 <img className="w-20" src={`/images/${firstImage}`} alt="" />
                 <img className="w-[32px]" src="/images/mul.svg" alt="" />
                 <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
-                <PopoverCom headImg={firstImage} firstLine="Now keep on infecting!" secondLine="The more you infected, the more virus you will earn!">
+                <PopoverCom headImg={firstImage} firstLine="Now keep on infecting!" secondLine="When the infection progress reaches 100%, you will become the ultimate bio-organism and can obtain a large amount of mutated $VIRUS or one ETH!">
                   <img className="w-12" src="/images/Infomation.svg" alt="" />
                 </PopoverCom>
               </div>
@@ -221,7 +221,7 @@ export default function Home() {
         <p className="text-white text-center">
           <span className="text-lime-600">{tokenToTake}</span> $VIRUS
         </p>
-        <PopoverCom headImg={firstImage} firstLine="Attention!" secondLine="If you do not get or give up ETH reward, you can get token reward instead." hideHeaderImg={false}>
+        <PopoverCom headImg={firstImage} firstLine="Attention!" secondLine="Continue to spread the infection. As more and more people get infected, you will gain more $VIRUS." hideHeaderImg={false}>
           <img className="w-12" src="/images/Infomation.svg" alt="" />
         </PopoverCom>
       </div>
