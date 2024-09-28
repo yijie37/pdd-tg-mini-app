@@ -14,8 +14,8 @@ const App: React.FC<IPopoverProps> = ({ headImg, firstLine, secondLine, hideHead
   // const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const handleOpenChange = (newOpen: boolean) => {
-    setOpen(newOpen);
+  const handleOpenChange = () => {
+    setOpen(!open);
   };
 
 
