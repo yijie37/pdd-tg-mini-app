@@ -18,9 +18,12 @@ const App: React.FC<IPopoverProps> = ({ headImg, firstLine, secondLine, hideHead
   };
 
   const handleClick = (e: React.MouseEvent<HTMLImageElement> | React.TouchEvent<HTMLImageElement>) => {
+    console.log('handleClick');
+    console.log('e', e);
     e.preventDefault();
     e.stopPropagation();
     setOpen(!open);
+    console.log('open', open);
   };
 
   const content = (
