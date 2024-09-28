@@ -11,21 +11,17 @@ interface IPopoverProps {
 }
 
 const App: React.FC<IPopoverProps> = ({ headImg, firstLine, secondLine, hideHeaderImg=true }) => {
-  // const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleOpenChange = () => {
     setOpen(!open);
   };
 
-
-  // const handleVisibleChange = (newVisible: boolean) => {
-  //   setVisible(newVisible);
-  // };
-
-  // const handleClick = () => {
-  //   setVisible(!visible);
-  // };
+  const handleClick = (e: React.MouseEvent<HTMLImageElement> | React.TouchEvent<HTMLImageElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpen(!open);
+  };
 
   const content = (
     <div className='text-white'>
@@ -36,8 +32,17 @@ const App: React.FC<IPopoverProps> = ({ headImg, firstLine, secondLine, hideHead
   );
 
   // return (
-  //   <Popover content={content}>
-  //     <img className="w-6 pos-right" src="/images/Infomation.svg" alt="Information Icon" />
+  //   <Popover 
+  //     content={content}
+  //     open={open}
+  //     onOpenChange={handleOpenChange}
+  //     trigger="click"
+  //   >
+  //     <img 
+  //       className="w-6 pos-right cursor-pointer" 
+  //       src="/images/Infomation.svg" 
+  //       alt="Information Icon" 
+  //     />
   //   </Popover>
   // );
   return (
@@ -46,11 +51,15 @@ const App: React.FC<IPopoverProps> = ({ headImg, firstLine, secondLine, hideHead
       open={open}
       onOpenChange={handleOpenChange}
       trigger="click"
+      overlayStyle={{ zIndex: 9999 }}
     >
       <img 
         className="w-6 pos-right cursor-pointer" 
         src="/images/Infomation.svg" 
         alt="Information Icon" 
+        onClick={handleClick}
+        onTouchStart={handleClick}
+        style={{ touchAction: 'manipulation' }}
       />
     </Popover>
   );
