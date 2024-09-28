@@ -192,7 +192,9 @@ export default function Home() {
           <div className='w-full border border-teal-600 rounded p-1'>
             <div className='p-2 bg-lime-300 rounded-sm relative'>
               <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
-              <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{(btcProgress * 100).toFixed(6)}%</span>
+              <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
+                {(btcProgress * 100).toFixed(6)}%
+              </span>
             </div>
           </div>
         ): (
@@ -200,7 +202,9 @@ export default function Home() {
               <div className='w-full border border-teal-600 rounded p-1'>
                 <div className='p-2 bg-lime-300 rounded-sm relative'>
                   <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
-                  <span className='absolute top-1 inset-x-1/2 translate-x-negative-5 text-black translate-x-50'>{(btcProgress * 100).toFixed(6)}%</span>
+                  <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
+                    {(btcProgress * 100).toFixed(6)}%
+                  </span>
                 </div>
               </div>
               <div className="flex justify-between items-center ">
