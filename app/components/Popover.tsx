@@ -34,20 +34,6 @@ const App: React.FC<IPopoverProps> = ({ headImg, firstLine, secondLine, hideHead
     </div>
   );
 
-  // return (
-  //   <Popover 
-  //     content={content}
-  //     open={open}
-  //     onOpenChange={handleOpenChange}
-  //     trigger="click"
-  //   >
-  //     <img 
-  //       className="w-6 pos-right cursor-pointer" 
-  //       src="/images/Infomation.svg" 
-  //       alt="Information Icon" 
-  //     />
-  //   </Popover>
-  // );
   return (
     <Popover 
       content={content}

@@ -53,7 +53,6 @@ export default function Home() {
       // setUserId("1390026482");
       // setRegisterYears(4);
 
-      // const recommender = "0";
       if (WebApp.initDataUnsafe.start_param) {
         setRecommender(WebApp.initDataUnsafe.start_param);
       }
@@ -211,7 +210,7 @@ export default function Home() {
                 <img className="w-20" src={`/images/${firstImage}`} alt="" />
                 <img className="w-[32px]" src="/images/mul.svg" alt="" />
                 <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
-                <PopoverCom headImg={firstImage} firstLine="Now keep on infecting!" secondLine="When the infection progress reaches 100%, you will become the ultimate bio-organism and can obtain a large amount of mutated $VIRUS or one ETH!">
+                <PopoverCom headImg={firstImage} firstLine="Now keep on infecting!" secondLine="When the infection progress reaches 100%, you will become the ultimate bio-organism and can obtain a large amount of mutated $VIRUS or 1 ETH!">
                   <img className="w-12" src="/images/Infomation.svg" alt="" />
                 </PopoverCom>
               </div>
