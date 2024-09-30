@@ -203,21 +203,34 @@ export default function Home() {
     <div className="bg-black min-h-screen px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-between max-w-md mx-auto">
       <div className="flex flex-col gap-4 sm:gap-6">
         <div className="flex items-center justify-center relative">
-          <img className='w-32 h-28' src="/images/final.webp" alt="" />
           <PopoverCom 
-            headImg={firstImage}
+            headImg=""
             firstLine="How to Play"
             secondLine="By sharing invitations to spread the virus, you increase the biohazard progress. When the progress reaches 99%, various mutant viruses start to emerge. Upon reaching 100% progress, you can obtain a large amount of viruses or 1 ETH."
             hideHeaderImg={true}
-          >
-            <button 
-              onClick={togglePopover}
-              className="absolute left-0 bg-lime-500 text-black px-2 py-1 rounded-full text-xs"
-            >
-              i
-            </button>
-          </PopoverCom>
+            icon={
+              <img 
+                src="/images/info-icon.svg" 
+                alt="Info" 
+                className="absolute left-0 w-6 h-6 cursor-pointer"
+              />
+            }
+          />
+          <img className='w-32 h-28' src="/images/final.webp" alt="" />
         </div>
+        
+        {/* Another PopoverCom with a different icon */}
+        <PopoverCom 
+          headImg=""
+          firstLine="Another Popover"
+          secondLine="This popover uses a different icon."
+          hideHeaderImg={true}
+          icon={
+            <button className="bg-blue-500 text-white px-2 py-1 rounded">
+              Click me
+            </button>
+          }
+        />
         
         {/* Referral Reward group */}
         {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
