@@ -195,11 +195,6 @@ export default function Home() {
     });
   }
 
-  const showToastMessage = () => {
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 5000); // Hide after 5 seconds
-  };
-
   return (
     <div className="bg-black min-h-screen px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-between max-w-md mx-auto">
       <div className="flex flex-col gap-4 sm:gap-6">
