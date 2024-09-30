@@ -203,16 +203,7 @@ export default function Home() {
     <div className="bg-black min-h-screen px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-between max-w-md mx-auto">
       <div className="flex flex-col gap-4 sm:gap-6">
         <div className="flex items-center justify-center relative">
-          <button 
-            onClick={togglePopover}
-            className="absolute left-0 bg-lime-500 text-black px-2 py-1 rounded-full text-xs"
-          >
-            How to Play
-          </button>
           <img className='w-32 h-28' src="/images/final.webp" alt="" />
-        </div>
-        
-        {showPopover && (
           <PopoverCom 
             headImg=""
             firstLine="How to Play"
@@ -221,12 +212,12 @@ export default function Home() {
           >
             <button 
               onClick={togglePopover}
-              className="absolute top-2 right-2 text-white"
+              className="absolute left-0 bg-lime-500 text-black px-2 py-1 rounded-full text-xs"
             >
-              How to Play
+              i
             </button>
           </PopoverCom>
-        )}
+        </div>
         
         {/* Referral Reward group */}
         {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
