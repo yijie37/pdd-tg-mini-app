@@ -245,7 +245,7 @@ export default function Home() {
       </div>
       
       <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-4">
-        <div className="bg-blue-500 text-white text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
+        <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
           Join Telegram Channel
         </div>
         <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleInvite}>
