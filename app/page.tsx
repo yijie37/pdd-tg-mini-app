@@ -202,10 +202,10 @@ export default function Home() {
   return (
     <div className="bg-black min-h-screen px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-between max-w-md mx-auto">
       <div className="flex flex-col gap-4 sm:gap-6">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center relative">
           <button 
             onClick={toggleMessage}
-            className="mr-4 bg-blue-500 text-white px-2 py-1 rounded-full"
+            className="absolute left-0 bg-blue-500 text-white px-2 py-1 rounded-full text-xs"
           >
             How to Play
           </button>
@@ -270,10 +270,10 @@ export default function Home() {
       </div>
       
       <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-4">
-        <div className="bg-blue-400 text-white text-center h-10 leading-10 rounded-lg" onClick={handleFollowTwitter}>
+        <div className="bg-lime-400 text-black text-center h-10 leading-10 rounded-lg" onClick={handleFollowTwitter}>
           Follow Twitter
         </div>
-        <div className="bg-blue-500 text-white text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
+        <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
           Join Telegram Channel
         </div>
         <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleInvite}>
