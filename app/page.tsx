@@ -214,19 +214,6 @@ export default function Home() {
           <img className='w-32 h-28' src="/images/final.webp" alt="" />
         </div>
         
-        {/* Another PopoverCom with a different icon */}
-        <PopoverCom 
-          headImg=""
-          firstLine="Another Popover"
-          secondLine="This popover uses a different icon."
-          hideHeaderImg={true}
-          icon={
-            <button className="bg-blue-500 text-white px-2 py-1 rounded">
-              Click me
-            </button>
-          }
-        />
-        
         {/* Referral Reward group */}
         {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
           <h3 className='text-white text-center mb-4'>Referral Reward</h3>
