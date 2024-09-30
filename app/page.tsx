@@ -37,7 +37,6 @@ export default function Home() {
   const [userToken, setUserToken] = useState<string>("0");
   const [firstImage, setFirstImage] = useState<string>('');
   const [thirdValue, setThirdValue] = useState<number>(3);
-  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     const initializeApp = () => {
