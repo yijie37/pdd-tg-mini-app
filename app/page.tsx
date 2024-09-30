@@ -37,7 +37,6 @@ export default function Home() {
   const [userToken, setUserToken] = useState<string>("0");
   const [firstImage, setFirstImage] = useState<string>('');
   const [thirdValue, setThirdValue] = useState<number>(3);
-  const [showPopover, setShowPopover] = useState(false);
 
   useEffect(() => {
     const initializeApp = () => {
@@ -194,10 +193,6 @@ export default function Home() {
       tryBrowser: true
     });
   }
-
-  const togglePopover = () => {
-    setShowPopover(!showPopover);
-  };
 
   return (
     <div className="bg-black min-h-screen px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-between max-w-md mx-auto">
