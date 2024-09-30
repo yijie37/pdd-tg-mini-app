@@ -37,7 +37,7 @@ export default function Home() {
   const [userToken, setUserToken] = useState<string>("0");
   const [firstImage, setFirstImage] = useState<string>('');
   const [thirdValue, setThirdValue] = useState<number>(3);
-  const [showMessage, setShowMessage] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     const initializeApp = () => {
@@ -195,8 +195,9 @@ export default function Home() {
     });
   }
 
-  const toggleMessage = () => {
-    setShowMessage(!showMessage);
+  const showToastMessage = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 5000); // Hide after 5 seconds
   };
 
   return (
@@ -204,16 +205,16 @@ export default function Home() {
       <div className="flex flex-col gap-4 sm:gap-6">
         <div className="flex items-center justify-center relative">
           <button 
-            onClick={toggleMessage}
-            className="absolute left-0 bg-blue-500 text-white px-2 py-1 rounded-full text-xs"
+            onClick={showToastMessage}
+            className="absolute left-0 bg-lime-500 text-black px-2 py-1 rounded-full text-xs"
           >
             How to Play
           </button>
           <img className='w-32 h-28' src="/images/final.webp" alt="" />
         </div>
         
-        {showMessage && (
-          <div className="bg-gray-800 text-white p-4 rounded-lg mt-2">
+        {showToast && (
+          <div className="fixed bottom-4 left-4 right-4 bg-gray-800 text-black p-4 rounded-lg shadow-lg transition-opacity duration-300 ease-in-out opacity-90">
             By sharing invitations to spread the virus, you increase the biohazard progress. When the progress reaches 99%, various mutant viruses start to emerge. Upon reaching 100% progress, you can obtain a large amount of viruses or 1 ETH.
           </div>
         )}
