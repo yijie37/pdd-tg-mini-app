@@ -236,7 +236,7 @@ export default function Home() {
           <img className="w-12" src="/images/Infomation.svg" alt="" />
         </PopoverCom>
       </div>
-      <div className="bg-blue-500 text-white text-center mt-auto h-10 leading-10 rounded-lg mb-4" onClick={handleChannel}>
+      <div className="bg-lime-500 text-white text-center mt-auto h-10 leading-10 rounded-lg mb-4" onClick={handleChannel}>
         Join Telegram Channel
       </div>
       <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleInvite}>
