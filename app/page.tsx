@@ -208,7 +208,7 @@ export default function Home() {
               <img 
                 src="/images/info-icon.svg" 
                 alt="Info" 
-                className="absolute left-0 w-6 h-6 cursor-pointer"
+                className="absolute right-0 w-6 h-6 cursor-pointer"
               />
             }
           />
