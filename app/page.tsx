@@ -208,7 +208,7 @@ export default function Home() {
             headImg={firstImage}
             firstLine="How to Play"
             secondLine="By sharing invitations to spread the virus, you increase the biohazard progress. When the progress reaches 99%, various mutant viruses start to emerge. Upon reaching 100% progress, you can obtain a large amount of viruses or 1 ETH."
-            // hideHeaderImg={false}
+            hideHeaderImg={true}
           >
             <button 
               onClick={togglePopover}
