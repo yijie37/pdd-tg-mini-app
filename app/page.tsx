@@ -180,6 +180,14 @@ export default function Home() {
     )
   }
 
+  function handleChannel() {
+    const utils = initUtils();
+    utils.openLink('https://t.me/virusgamestop', {
+      tryInstantView: true,
+      tryBrowser: false
+    });
+  }
+
   return (
     <div className="bg-black h-screen px-8 py-10 flex flex-col gap-8">
       <img className='w-32 h-28 mx-auto' src="/images/final.webp" alt="" />
@@ -228,7 +236,10 @@ export default function Home() {
           <img className="w-12" src="/images/Infomation.svg" alt="" />
         </PopoverCom>
       </div>
-      <div className="bg-lime-500 text-black text-center mt-auto h-10 leading-10 rounded-lg" onClick={handleInvite}>
+      <div className="bg-blue-500 text-white text-center mt-auto h-10 leading-10 rounded-lg mb-4" onClick={handleChannel}>
+        Join Telegram Channel
+      </div>
+      <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleInvite}>
         Infect Others
       </div>
     </div>
