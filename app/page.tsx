@@ -204,21 +204,21 @@ export default function Home() {
     <div className="bg-black min-h-screen px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-between max-w-md mx-auto">
       <div className="flex flex-col gap-4 sm:gap-6">
         <div className="flex items-center justify-center relative">
-          <button 
-            onClick={showToastMessage}
-            className="absolute left-0 bg-lime-500 text-black px-2 py-1 rounded-full text-xs"
+          <PopoverCom 
+            headImg=""
+            firstLine="Hi there!"
+            secondLine="By sharing invitations to spread the virus, you increase the biohazard progress. When the progress reaches 99%, various mutant viruses start to emerge. Upon reaching 100% progress, you can obtain a large amount of viruses or 1 ETH."
+            hideHeaderImg={true}
           >
-            How to Play
-          </button>
+            <button 
+              className="absolute left-0 bg-lime-500 text-black px-2 py-1 rounded-full text-xs"
+            >
+              How to Play
+            </button>
+          </PopoverCom>
           <img className='w-32 h-28' src="/images/final.webp" alt="" />
         </div>
         
-        {showToast && (
-          <div className="fixed bottom-4 left-4 right-4 bg-gray-800 text-black p-4 rounded-lg shadow-lg transition-opacity duration-300 ease-in-out opacity-90">
-            By sharing invitations to spread the virus, you increase the biohazard progress. When the progress reaches 99%, various mutant viruses start to emerge. Upon reaching 100% progress, you can obtain a large amount of viruses or 1 ETH.
-          </div>
-        )}
-
         {/* Referral Reward group */}
         {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
           <h3 className='text-white text-center mb-4'>Referral Reward</h3>
