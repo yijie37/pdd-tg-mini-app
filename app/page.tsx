@@ -37,6 +37,7 @@ export default function Home() {
   const [userToken, setUserToken] = useState<string>("0");
   const [firstImage, setFirstImage] = useState<string>('');
   const [thirdValue, setThirdValue] = useState<number>(3);
+  const [showPopover, setShowPopover] = useState(false);
 
   useEffect(() => {
     const initializeApp = () => {
@@ -194,24 +195,38 @@ export default function Home() {
     });
   }
 
+  const togglePopover = () => {
+    setShowPopover(!showPopover);
+  };
+
   return (
     <div className="bg-black min-h-screen px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-between max-w-md mx-auto">
       <div className="flex flex-col gap-4 sm:gap-6">
         <div className="flex items-center justify-center relative">
+          <button 
+            onClick={togglePopover}
+            className="absolute left-0 bg-lime-500 text-black px-2 py-1 rounded-full text-xs"
+          >
+            How to Play
+          </button>
+          <img className='w-32 h-28' src="/images/final.webp" alt="" />
+        </div>
+        
+        {showPopover && (
           <PopoverCom 
             headImg=""
-            firstLine="Hi there!"
+            firstLine="How to Play"
             secondLine="By sharing invitations to spread the virus, you increase the biohazard progress. When the progress reaches 99%, various mutant viruses start to emerge. Upon reaching 100% progress, you can obtain a large amount of viruses or 1 ETH."
             hideHeaderImg={true}
           >
             <button 
-              className="absolute left-0 bg-lime-500 text-black px-2 py-1 rounded-full text-xs"
+              onClick={togglePopover}
+              className="absolute top-2 right-2 text-white"
             >
               How to Play
             </button>
           </PopoverCom>
-          <img className='w-32 h-28' src="/images/final.webp" alt="" />
-        </div>
+        )}
         
         {/* Referral Reward group */}
         {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
