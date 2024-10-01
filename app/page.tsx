@@ -280,10 +280,10 @@ export default function Home() {
 
         {/* Follow Twitter and Join Telegram Channel buttons */}
         <div className="flex sm:flex-row gap-4 sm:gap-8">
-          <div className="flex-1 min-w-0 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg w-full" onClick={handleFollowTwitter}>
+          <div className="flex-1 min-w-0 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleFollowTwitter}>
             Follow Twitter 
           </div>
-          <div className="flext-1 min-w-0 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg w-full" onClick={handleChannel}>
+          <div className="flext-1 min-w-0 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
             Join Channel
           </div>
         </div>
