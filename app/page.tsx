@@ -278,35 +278,22 @@ export default function Home() {
 
         {/* Follow Twitter and Join Telegram Channel buttons */}
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
-          <div className="flex-1 border-2 border-gray-700 rounded-lg py-4 px-6 sm:px-8 relative">
-            <div className="text-white text-lg font-bold mb-2">Follow Twitter</div>
-            <button
-              className="bg-[#1DA1F2] text-white font-bold py-2 px-4 rounded hover:bg-[#1a91da] transition-colors"
-              onClick={handleFollowTwitter}
-            >
-              Follow
-            </button>
+          <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleFollowTwitter}>
+            Follow Twitter 
           </div>
-
-          <div className="flex-1 border-2 border-gray-700 rounded-lg py-4 px-6 sm:px-8 relative">
-            <div className="text-white text-lg font-bold mb-2">Join Telegram Channel</div>
-            <button
-              className="bg-[#0088cc] text-white font-bold py-2 px-4 rounded hover:bg-[#0077b5] transition-colors"
-              onClick={handleChannel}
-            >
-              Join
-            </button>
+          <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
+            Join Telegram Channel
           </div>
         </div>
 
         <button
-          className="bg-gray-600 text-gray-300 font-bold py-2 px-4 rounded cursor-not-allowed opacity-50"
+          className="bg-gray-500 text-gray-300 text-black text-center h-10 leading-10 rounded-lg"
           disabled
         >
           Connect Wallet and Withdraw ETH
         </button>
         <button
-          className="bg-gray-600 text-gray-300 font-bold py-2 px-4 rounded cursor-not-allowed opacity-50"
+          className="bg-gray-500 text-gray-300 text-black text-center h-10 leading-10 rounded-lg"
           disabled
         >
           Connect Wallet and Withdraw $VIRUS
