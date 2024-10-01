@@ -203,7 +203,7 @@ export default function Home() {
         <div className="flex items-center justify-center relative">
           <img className='w-32 h-28' src="/images/final.webp" alt="" />
           <PopoverCom 
-            headImg="/images/v5.svg"
+            headImg={firstImage}
             firstLine="How to Play"
             secondLine="By sharing invitations to spread the virus, you accelerate the biohazard spread. As it grows, various mutant viruses will start to emerge. Once you've infected enough people, you can obtain a large amount of viruses or up to 1 ETH in rewards."
             hideHeaderImg={true}
@@ -284,7 +284,7 @@ export default function Home() {
             Follow Twitter 
           </div>
           <div className="flext-1 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
-            Join Telegram Channel
+            Join Channel
           </div>
         </div>
 
