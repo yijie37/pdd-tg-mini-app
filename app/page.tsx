@@ -221,8 +221,8 @@ export default function Home() {
         {btcToTake && <div className="border-2 border-gray-700 rounded-lg  py-4 px-6 sm:px-8 relative">
           <h3 className='text-white text-center mb-4'>You Can Withdraw When You Get 1 ETH</h3>
           {recommendations > 0 && (
-          <div className="text-white-500 mt-1 text-xs">You Have Infected {recommendations} people</div>
-        )}
+            <div className="text-white-500 mt-1 text-xs">You Have Infected {recommendations} people</div>
+          )}
           {btcProgress < 0.9999 ? (
             <div className='w-full border border-teal-600 rounded p-1'>
               <div className='p-2 bg-lime-300 rounded-sm relative'>
@@ -277,7 +277,7 @@ export default function Home() {
         </div>
 
         {/* Follow Twitter and Join Telegram Channel buttons */}
-        <div className="flex flex-row sm:flex-row gap-4 sm:gap-8">
+        <div className="flex sm:flex-row gap-4 sm:gap-8">
           <div className="flex-1 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleFollowTwitter}>
             Follow Twitter 
           </div>
