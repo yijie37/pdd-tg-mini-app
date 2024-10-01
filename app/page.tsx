@@ -228,7 +228,7 @@ export default function Home() {
               <div className='p-2 bg-lime-300 rounded-sm relative'>
                 <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
                 <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
-                  {Math.floor(btcProgress).toFixed(2)} ETH
+                  {btcProgress.toFixed(2)} ETH
                 </span>
               </div>
             </div>
