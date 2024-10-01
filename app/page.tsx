@@ -277,7 +277,7 @@ export default function Home() {
         </div>
 
         {/* Follow Twitter and Join Telegram Channel buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
+        <div className="flex flex-row sm:flex-row gap-4 sm:gap-8">
           <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleFollowTwitter}>
             Follow Twitter 
           </div>
@@ -286,18 +286,13 @@ export default function Home() {
           </div>
         </div>
 
-        <button
-          className="bg-gray-500 text-gray-300 text-black text-center h-10 leading-10 rounded-lg"
-          disabled
-        >
+        <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg">
           Connect Wallet and Withdraw ETH
-        </button>
-        <button
-          className="bg-gray-500 text-gray-300 text-black text-center h-10 leading-10 rounded-lg"
-          disabled
-        >
+        </div>
+
+        <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg">
           Connect Wallet and Withdraw $VIRUS
-        </button>
+        </div>
 
       </div>
     </div>
