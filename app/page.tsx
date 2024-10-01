@@ -282,7 +282,7 @@ export default function Home() {
             <div className="text-white text-lg font-bold mb-2">Follow Twitter</div>
             <button
               className="bg-[#1DA1F2] text-white font-bold py-2 px-4 rounded hover:bg-[#1a91da] transition-colors"
-              onClick={() => window.open('https://twitter.com/your_twitter_link', '_blank')}
+              onClick={handleFollowTwitter}
             >
               Follow
             </button>
@@ -292,7 +292,7 @@ export default function Home() {
             <div className="text-white text-lg font-bold mb-2">Join Telegram Channel</div>
             <button
               className="bg-[#0088cc] text-white font-bold py-2 px-4 rounded hover:bg-[#0077b5] transition-colors"
-              onClick={() => window.open('https://t.me/your_telegram_link', '_blank')}
+              onClick={handleChannel}
             >
               Join
             </button>
