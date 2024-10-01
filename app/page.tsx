@@ -38,6 +38,7 @@ export default function Home() {
   const [userToken, setUserToken] = useState<string>("0");
   const [firstImage, setFirstImage] = useState<string>('');
   const [thirdValue, setThirdValue] = useState<number>(3);
+  const [recommendations, setRecommendations] = useState<number>(0);
 
   useEffect(() => {
     const initializeApp = () => {
@@ -77,6 +78,7 @@ export default function Home() {
         setBtcProgress(btcProgress);
 
         setUserToken(response.token);
+        setRecommendations(response.recommendations);
         console.log("response", response);
 
         // Call /api/recommend after receiving the response from /api/user/score
@@ -196,7 +198,7 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-black min-h-screen px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-between max-w-md mx-auto">
+    <div className="bg-black min-h-screen px-4 sm:px-8 py-10 flex flex-col gap-6 sm:gap-8">
       <div className="flex flex-col gap-4 sm:gap-6">
         <div className="flex items-center justify-center relative">
           <img className='w-32 h-28' src="/images/final.webp" alt="" />
@@ -216,14 +218,17 @@ export default function Home() {
         </div>
         
         {/* Referral Reward group */}
-        {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
-          <h3 className='text-white text-center mb-4'>Referral Reward</h3>
-          {btcProgress < 0.99 ? (
+        {btcToTake && <div className="border-2 border-gray-700 rounded-lg  py-4 px-6 sm:px-8 relative">
+          <h3 className='text-white text-center mb-4'>You Can Withdraw When You Get 1 ETH</h3>
+          {recommendations > 0 && (
+          <div className="text-white-500 mt-1 text-xs">You Have Infected {recommendations} people</div>
+        )}
+          {btcProgress < 0.9999 ? (
             <div className='w-full border border-teal-600 rounded p-1'>
               <div className='p-2 bg-lime-300 rounded-sm relative'>
                 <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
                 <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
-                  {(btcProgress * 100).toFixed(6)}%
+                  {Math.floor(btcProgress).toFixed(2)} ETH
                 </span>
               </div>
             </div>
@@ -233,7 +238,7 @@ export default function Home() {
                 <div className='p-2 bg-lime-300 rounded-sm relative'>
                   <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
                   <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
-                    {(btcProgress * 100).toFixed(6)}%
+                    0.99 ETH
                   </span>
                 </div>
               </div>
@@ -250,7 +255,7 @@ export default function Home() {
         </div>}
 
         {/* Token Reward group */}
-        <div className="border-2 border-gray-700 rounded-lg p-4 relative">
+        <div className="border-2 border-gray-700 rounded-lg py-4 px-6 sm:px-8 relative">
           <p className="text-white text-center mb-4">Token Reward</p>
           <p className="text-white text-center">
             <span className="text-lime-600">{tokenToTake}</span> $VIRUS
@@ -267,15 +272,46 @@ export default function Home() {
       </div>
       
       <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-4">
-        <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleFollowTwitter}>
-          Follow Twitter
-        </div>
-        <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
-          Join Telegram Channel
-        </div>
         <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleInvite}>
           Infect Others
         </div>
+
+        {/* Follow Twitter and Join Telegram Channel buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
+          <div className="flex-1 border-2 border-gray-700 rounded-lg py-4 px-6 sm:px-8 relative">
+            <div className="text-white text-lg font-bold mb-2">Follow Twitter</div>
+            <button
+              className="bg-[#1DA1F2] text-white font-bold py-2 px-4 rounded hover:bg-[#1a91da] transition-colors"
+              onClick={() => window.open('https://twitter.com/your_twitter_link', '_blank')}
+            >
+              Follow
+            </button>
+          </div>
+
+          <div className="flex-1 border-2 border-gray-700 rounded-lg py-4 px-6 sm:px-8 relative">
+            <div className="text-white text-lg font-bold mb-2">Join Telegram Channel</div>
+            <button
+              className="bg-[#0088cc] text-white font-bold py-2 px-4 rounded hover:bg-[#0077b5] transition-colors"
+              onClick={() => window.open('https://t.me/your_telegram_link', '_blank')}
+            >
+              Join
+            </button>
+          </div>
+        </div>
+
+        <button
+          className="bg-gray-600 text-gray-300 font-bold py-2 px-4 rounded cursor-not-allowed opacity-50"
+          disabled
+        >
+          Connect Wallet and Withdraw ETH
+        </button>
+        <button
+          className="bg-gray-600 text-gray-300 font-bold py-2 px-4 rounded cursor-not-allowed opacity-50"
+          disabled
+        >
+          Connect Wallet and Withdraw $VIRUS
+        </button>
+
       </div>
     </div>
   );
