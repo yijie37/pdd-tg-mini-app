@@ -225,7 +225,7 @@ export default function Home() {
           {recommendations > 0 && (
             <div className="text-white-500 mt-1 text-xs">You Have Infected {recommendations} people</div>
           )}
-          {btcProgress < 0.9999 ? (
+          {btcProgress < 0.99 ? (
             <div className='w-full border border-teal-600 rounded p-1'>
               <div className='p-2 bg-lime-300 rounded-sm relative'>
                 <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
@@ -280,10 +280,10 @@ export default function Home() {
 
         {/* Follow Twitter and Join Telegram Channel buttons */}
         <div className="flex sm:flex-row gap-4 sm:gap-8">
-          <div className="flex-1 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleFollowTwitter}>
+          <div className="flex-1 min-w-0 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg w-full" onClick={handleFollowTwitter}>
             Follow Twitter 
           </div>
-          <div className="flext-1 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
+          <div className="flext-1 min-w-0 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg w-full" onClick={handleChannel}>
             Join Channel
           </div>
         </div>
