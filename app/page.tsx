@@ -203,9 +203,9 @@ export default function Home() {
         <div className="flex items-center justify-center relative">
           <img className='w-32 h-28' src="/images/final.webp" alt="" />
           <PopoverCom 
-            headImg={firstImage}
+            headImg="/images/v5.svg"
             firstLine="How to Play"
-            secondLine="By sharing invitations to spread the virus, you increase the biohazard progress. When the progress reaches 99%, various mutant viruses start to emerge. Upon reaching 100% progress, you can obtain a large amount of viruses or 1 ETH."
+            secondLine="By sharing invitations to spread the virus, you accelerate the biohazard spread. As it grows, various mutant viruses will start to emerge. Once you've infected enough people, you can obtain a large amount of viruses or up to 1 ETH in rewards."
             hideHeaderImg={true}
             icon={
               <img 
@@ -218,7 +218,9 @@ export default function Home() {
         </div>
         
         {/* Referral Reward group */}
-        {btcToTake && <div className="border-2 border-gray-700 rounded-lg  py-4 px-6 sm:px-8 relative">
+        {btcToTake && 
+        // <div className="border-2 border-gray-700 rounded-lg  py-4 px-6 sm:px-8 relative">
+          <div className="border-2 border-gray-700 rounded-lg py-4 px-4 sm:px-6 relative mx-2 sm:mx-4">
           <h3 className='text-white text-center mb-4'>You Can Withdraw When You Get 1 ETH</h3>
           {recommendations > 0 && (
             <div className="text-white-500 mt-1 text-xs">You Have Infected {recommendations} people</div>
