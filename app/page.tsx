@@ -257,7 +257,7 @@ export default function Home() {
         </div>}
 
         {/* Token Reward group */}
-        <div className="border-2 border-gray-700 rounded-lg py-4 px-6 sm:px-8 relative">
+        <div className="border-2 border-gray-700 rounded-lg py-4 px-6 sm:px-8 relative mx-2 sm:mx-4">
           <p className="text-white text-center mb-4">Token Reward</p>
           <p className="text-white text-center">
             <span className="text-lime-600">{tokenToTake}</span> $VIRUS
