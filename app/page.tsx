@@ -283,7 +283,7 @@ export default function Home() {
           <div className="flex-1 min-w-0 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleFollowTwitter}>
             Follow Twitter 
           </div>
-          <div className="flext-1 min-w-0 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
+          <div className="flex-1 min-w-0 bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
             Join Channel
           </div>
         </div>
