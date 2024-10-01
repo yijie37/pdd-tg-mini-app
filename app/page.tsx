@@ -230,7 +230,7 @@ export default function Home() {
               <div className='p-2 bg-lime-300 rounded-sm relative'>
                 <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
                 <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
-                  {btcProgress.toFixed(2)} ETH
+                  {btcProgress.toFixed(3)} ETH
                 </span>
               </div>
             </div>
@@ -248,7 +248,7 @@ export default function Home() {
                 <img className="w-20" src={`/images/${firstImage}`} alt="" />
                 <img className="w-[32px]" src="/images/mul.svg" alt="" />
                 <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
-                <PopoverCom headImg={firstImage} firstLine="Now keep on infecting!" secondLine="When the infection progress reaches 100%, you will become the ultimate bio-organism and can obtain a large amount of mutated $VIRUS or 1 ETH!">
+                <PopoverCom headImg={firstImage} firstLine="Now keep on infecting!" secondLine="As you evolve into the ultimate bio-organism, you can receive a significant amount of mutated $VIRUS or up to 1 ETH!">
                   <img className="w-12" src="/images/Infomation.svg" alt="" />
                 </PopoverCom>
               </div>
