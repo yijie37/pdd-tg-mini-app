@@ -119,7 +119,7 @@ export default function Home() {
 
   useEffect(() => {
     const dealBtcToTake = async() => {
-      console.log("dealBtcToTake - btcToTake", btcToTake)
+      // console.log("dealBtcToTake - btcToTake", btcToTake)
       const n = btcToTake;
       const selftFirstImage = `v${getMagnitude(n)}.svg`
       const selfThirdValue = Math.floor(n / (10 ** (getMagnitude(n) - 1)))
@@ -273,9 +273,9 @@ export default function Home() {
       </div>
       
       <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-4">
-        {Number(recommendations) > 0 && (
+        {/* {Number(recommendations) > 0 && ( */}
           <div className="text-white-500 mt-1 text-xs">You Have Infected {recommendations} people</div>
-        )}
+        {/* )} */}
         <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleInvite}>
           Infect Others
         </div>
