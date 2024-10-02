@@ -274,10 +274,12 @@ export default function Home() {
       
       <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-4">
         {/* {Number(recommendations) > 0 && ( */}
-        <p className="text-white text-center mb-4">You Have Infected {recommendations} people</p>
+        <p className="text-white text-center mb-4">
+          You Have Infected <span className="text-lime-600">{recommendations}</span> people
+        </p>
         {/* )} */}
         <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleInvite}>
-          Infect Others
+          Infect More People
         </div>
 
         {/* Follow Twitter and Join Telegram Channel buttons */}
