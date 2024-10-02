@@ -78,7 +78,6 @@ export default function Home() {
         setBtcProgress(btcProgress);
 
         setUserToken(response.token);
-        setRecommendations(response.recommendations);
         console.log("response", response);
 
         // Call /api/recommend after receiving the response from /api/user/score
@@ -122,13 +121,15 @@ export default function Home() {
       const n = btcToTake;
       const selftFirstImage = `v${getMagnitude(n)}.svg`
       const selfThirdValue = Math.floor(n / (10 ** (getMagnitude(n) - 1)))
+      const recommend = recommendations;
 
       console.log(selftFirstImage, selfThirdValue)
       setFirstImage(selftFirstImage)
       setThirdValue(selfThirdValue)
+      setRecommendations(recommend)
     }
     dealBtcToTake();
-  }, [btcToTake]);
+  }, [btcToTake, recommendations]);
 
   function calculateYearsSince(dateString: string) {
     const now = new Date();
